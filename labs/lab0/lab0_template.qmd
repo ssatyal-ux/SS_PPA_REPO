@@ -1,8 +1,8 @@
 ---
 title: "Lab 0: Getting Started with dplyr"
 subtitle: "Your First Data Analysis"
-author: "Your Name Here"
-date: today
+author: "Shubhanga Satyal"
+date: 20 January 2026
 format: 
   html:
     code-fold: false
@@ -35,7 +35,7 @@ library(tidyverse)
 
 # Read in the car sales data
 # Make sure the data file is in your lab_0/data/ folder
-car_data <- read_csv("data/car_sales_data.csv")
+car_data <- read_csv("data/car_sales_data1.csv")
 ```
 
 # Exercise 1: Getting to Know Your Data
@@ -46,7 +46,7 @@ Explore the structure of your data and answer these questions:
 
 ```{r explore-structure}
 # Use glimpse() to see the data structure
-
+glimpse(car_data)
 
 # Check the column names
 
@@ -61,10 +61,10 @@ head(car_data)
 - Are there any column names that might cause problems? Why?
 
 **Your answers:**
-- Rows: [YOUR ANSWER]
-- Columns: [YOUR ANSWER]  
-- Variable types: [YOUR ANSWER]
-- Problematic names: [YOUR ANSWER]
+- Rows: 50000
+- Columns: 7
+- Variable types: 7
+- Problematic names: 3
 
 ## 1.2 Tibble vs Data Frame
 
