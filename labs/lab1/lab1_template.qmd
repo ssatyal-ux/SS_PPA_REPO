@@ -209,15 +209,17 @@ kable( caption = "Top 5 counties in California by HH Income MOE")
 # Display the selected counties with their key characteristics
 # Show: county name, median income, MOE percentage, reliability category
 
+
 selected_counties <- ca_county_reliability %>%
   filter(category %in% c("Low Confidence","Moderate Confidence", "High Confidence")) %>%
   group_by(category) %>%
-  slice_sample(n=1) %>%
+  slice(1:1) %>%
   ungroup() %>%
   select( County = NAME,
           `Median HH Income` = median_hh_incomeE,
           `Margin of Error for HH Income (%)` = moe_pct,
-          `Reliability Category` = category)
+          `Reliability Category` = category,
+          GEOID)
 tibble(selected_counties)
 
 ```
@@ -237,14 +239,55 @@ tibble(selected_counties)
 
 ```{r tract-demographics}
 # Define your race/ethnicity variables with descriptive names
+race_variables <- c(
+  `White Alone` = "B03002_003",
+  `Black/African American` = "B03002_004",
+  `Hispanic/Latino` = "B03002_012",
+  `Total Population` = "B03002_001"
+)
 
 # Use get_acs() to retrieve tract-level data
 # Hint: You may need to specify county codes in the county parameter
 
-# Calculate percentage of each group using mutate()
-# Create percentages for white, Black, and Hispanic populations
+county_levelcode <- c("001","003","005")
+  
 
-# Add readable tract and county name columns using str_extract() or similar
+selected_counties_data <- get_acs(
+  geography = "tract",
+  variables = race_variables,
+  county = county_levelcode,
+  state = my_state,
+  year = 2022,
+  survey = "acs5",
+  output = "wide"
+)
+
+tibble(selected_counties_data)
+
+# Calculate percentage of each group using mutate()
+
+percentage_eachgroup <- selected_counties_data %>%
+  mutate(
+    pct_white = (`White AloneE`/`Total PopulationE`)*100,
+    pct_Black = (`Black/African AmericanE`/`Total PopulationE`)*100,
+    pct_Hisp = (`Hispanic/LatinoE`/`Total PopulationE`)*100
+    ) %>%
+  # Create percentages for white, Black, and Hispanic populations
+  mutate(`Percentage of White, Black and Hispanic Populations`= pct_white + pct_Black + pct_Hisp, 
+ # Add readable tract and county name columns using str_extract() or similar
+         Tract =  str_extract(NAME, "[0-9.]+"),
+         County = str_extract(NAME, "[A-Za-z ]+ County"))%>% 
+  select(County, Tract,
+         `White %` = "pct_white",
+         `Black %`= "pct_Black",
+         `Hispanic or Latino %`="pct_Hisp", 
+         `Percentage of White, Black and Hispanic Populations`,
+        )
+tibble(percentage_eachgroup)
+
+
+
+
 ```
 
 ## 3.3 Demographic Analysis
@@ -254,6 +297,11 @@ tibble(selected_counties)
 ```{r demographic-analysis}
 # Find the tract with the highest percentage of Hispanic/Latino residents
 # Hint: use arrange() and slice() to get the top tract
+hisp_high <- percentage_eachgroup %>%
+  arrange(desc(`Hispanic or Latino %`))%>%
+  slice_head(n=1)%>%
+  select(County,`Hispanic or Latino %`)
+tibble(hisp_high)
 
 # Calculate average demographics by county using group_by() and summarize()
 # Show: number of tracts, average percentage for each racial/ethnic group

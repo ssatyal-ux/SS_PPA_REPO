@@ -542,23 +542,25 @@ $ total_popM        &lt;dbl&gt; NA, 206, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the selected counties with their key characteristics</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show: county name, median income, MOE percentage, reliability category</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>selected_counties <span class="ot">&lt;-</span> ca_county_reliability <span class="sc">%&gt;%</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Low Confidence"</span>,<span class="st">"Moderate Confidence"</span>, <span class="st">"High Confidence"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(category) <span class="sc">%&gt;%</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="at">County =</span> NAME,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Median HH Income</span><span class="st">`</span> <span class="ot">=</span> median_hh_incomeE,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Margin of Error for HH Income (%)</span><span class="st">`</span> <span class="ot">=</span> moe_pct,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Reliability Category</span><span class="st">`</span> <span class="ot">=</span> category)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(selected_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>selected_counties <span class="ot">&lt;-</span> ca_county_reliability <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Low Confidence"</span>,<span class="st">"Moderate Confidence"</span>, <span class="st">"High Confidence"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(category) <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="at">County =</span> NAME,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Median HH Income</span><span class="st">`</span> <span class="ot">=</span> median_hh_incomeE,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Margin of Error for HH Income (%)</span><span class="st">`</span> <span class="ot">=</span> moe_pct,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Reliability Category</span><span class="st">`</span> <span class="ot">=</span> category,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>          GEOID)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(selected_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 4
-  County   `Median HH Income` Margin of Error for HH In…¹ `Reliability Category`
-  &lt;chr&gt;                 &lt;dbl&gt;                       &lt;dbl&gt; &lt;chr&gt;                 
-1 Butte                 66085                        3.42 High Confidence       
-2 Sierra                61108                       15.1  Low Confidence        
-3 Tuolumne              70432                        6.66 Moderate Confidence   
+<pre><code># A tibble: 3 × 5
+  County  `Median HH Income` Margin of Error for …¹ `Reliability Category` GEOID
+  &lt;chr&gt;                &lt;dbl&gt;                  &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;
+1 Alameda             122488                   1.00 High Confidence        06001
+2 Alpine              101125                  17.2  Low Confidence         06003
+3 Amador               74853                   8.08 Moderate Confidence    06005
 # ℹ abbreviated name: ¹​`Margin of Error for HH Income (%)`</code></pre>
 </div>
 </div>
@@ -570,27 +572,111 @@ $ total_popM        &lt;dbl&gt; NA, 206, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <p><strong>Requirements:</strong> - Geography: tract level - Variables: white alone (B03002_003), Black/African American (B03002_004), Hispanic/Latino (B03002_012), total population (B03002_001) - Use the same state and year as before - Output format: wide - <strong>Challenge:</strong> You’ll need county codes, not names. Look at the GEOID patterns in your county data for hints.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define your race/ethnicity variables with descriptive names</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_acs() to retrieve tract-level data</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: You may need to specify county codes in the county parameter</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentage of each group using mutate()</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create percentages for white, Black, and Hispanic populations</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>race_variables <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">White Alone</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"B03002_003"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Black/African American</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"B03002_004"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Hispanic/Latino</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"B03002_012"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Total Population</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"B03002_001"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add readable tract and county name columns using str_extract() or similar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_acs() to retrieve tract-level data</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: You may need to specify county codes in the county parameter</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>county_levelcode <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"001"</span>,<span class="st">"003"</span>,<span class="st">"005"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>selected_counties_data <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"tract"</span>,</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> race_variables,</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">county =</span> county_levelcode,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> my_state,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2022</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey =</span> <span class="st">"acs5"</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(selected_counties_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 390 × 10
+   GEOID       NAME         `White AloneE` `White AloneM` Black/African Americ…¹
+   &lt;chr&gt;       &lt;chr&gt;                 &lt;dbl&gt;          &lt;dbl&gt;                  &lt;dbl&gt;
+ 1 06001400100 Census Trac…           2255            444                    171
+ 2 06001400200 Census Trac…           1500            219                     38
+ 3 06001400300 Census Trac…           3290            378                    529
+ 4 06001400400 Census Trac…           2740            606                    499
+ 5 06001400500 Census Trac…           1638            262                    993
+ 6 06001400600 Census Trac…            905            183                    539
+ 7 06001400700 Census Trac…           2293            422                   1101
+ 8 06001400800 Census Trac…           2228            462                    643
+ 9 06001400900 Census Trac…           1052            266                    692
+10 06001401000 Census Trac…           2095            531                   1478
+# ℹ 380 more rows
+# ℹ abbreviated name: ¹​`Black/African AmericanE`
+# ℹ 5 more variables: `Black/African AmericanM` &lt;dbl&gt;,
+#   `Hispanic/LatinoE` &lt;dbl&gt;, `Hispanic/LatinoM` &lt;dbl&gt;,
+#   `Total PopulationE` &lt;dbl&gt;, `Total PopulationM` &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentage of each group using mutate()</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>percentage_eachgroup <span class="ot">&lt;-</span> selected_counties_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_white =</span> (<span class="st">`</span><span class="at">White AloneE</span><span class="st">`</span><span class="sc">/</span><span class="st">`</span><span class="at">Total PopulationE</span><span class="st">`</span>)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_Black =</span> (<span class="st">`</span><span class="at">Black/African AmericanE</span><span class="st">`</span><span class="sc">/</span><span class="st">`</span><span class="at">Total PopulationE</span><span class="st">`</span>)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_Hisp =</span> (<span class="st">`</span><span class="at">Hispanic/LatinoE</span><span class="st">`</span><span class="sc">/</span><span class="st">`</span><span class="at">Total PopulationE</span><span class="st">`</span>)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create percentages for white, Black, and Hispanic populations</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Percentage of White, Black and Hispanic Populations</span><span class="st">`</span><span class="ot">=</span> pct_white <span class="sc">+</span> pct_Black <span class="sc">+</span> pct_Hisp, </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a> <span class="co"># Add readable tract and county name columns using str_extract() or similar</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">Tract =</span>  <span class="fu">str_extract</span>(NAME, <span class="st">"[0-9.]+"</span>),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">County =</span> <span class="fu">str_extract</span>(NAME, <span class="st">"[A-Za-z ]+ County"</span>))<span class="sc">%&gt;%</span> </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(County, Tract,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">White %</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"pct_white"</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Black %</span><span class="st">`</span><span class="ot">=</span> <span class="st">"pct_Black"</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Hispanic or Latino %</span><span class="st">`</span><span class="ot">=</span><span class="st">"pct_Hisp"</span>, </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Percentage of White, Black and Hispanic Populations</span><span class="st">`</span>,</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(percentage_eachgroup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 390 × 6
+   County            Tract `White %` `Black %` `Hispanic or Latino %`
+   &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;                  &lt;dbl&gt;
+ 1 " Alameda County" 4001       69.0      5.23                   5.11
+ 2 " Alameda County" 4002       69.9      1.77                   7.41
+ 3 " Alameda County" 4003       58.6      9.41                  10.1 
+ 4 " Alameda County" 4004       64.0     11.7                    7.15
+ 5 " Alameda County" 4005       41.5     25.1                   15.5 
+ 6 " Alameda County" 4006       44.0     26.2                    6.51
+ 7 " Alameda County" 4007       48.2     23.1                    9.88
+ 8 " Alameda County" 4008       51.4     14.8                    8.93
+ 9 " Alameda County" 4009       37.0     24.3                   18.7 
+10 " Alameda County" 4010       33.4     23.5                   22.1 
+# ℹ 380 more rows
+# ℹ 1 more variable:
+#   `Percentage of White, Black and Hispanic Populations` &lt;dbl&gt;</code></pre>
+</div>
 </div>
 </section>
 <section id="demographic-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="demographic-analysis">3.3 Demographic Analysis</h2>
 <p><strong>Your Task:</strong> Analyze the demographic patterns in your selected areas.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the tract with the highest percentage of Hispanic/Latino residents</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use arrange() and slice() to get the top tract</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average demographics by county using group_by() and summarize()</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Show: number of tracts, average percentage for each racial/ethnic group</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a nicely formatted table of your results using kable()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the tract with the highest percentage of Hispanic/Latino residents</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use arrange() and slice() to get the top tract</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>hisp_high <span class="ot">&lt;-</span> percentage_eachgroup <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Hispanic or Latino %</span><span class="st">`</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">1</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(County,<span class="st">`</span><span class="at">Hispanic or Latino %</span><span class="st">`</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(hisp_high)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  County            `Hispanic or Latino %`
+  &lt;chr&gt;                              &lt;dbl&gt;
+1 " Alameda County"                     85</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average demographics by county using group_by() and summarize()</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Show: number of tracts, average percentage for each racial/ethnic group</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a nicely formatted table of your results using kable()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -601,25 +687,25 @@ $ total_popM        &lt;dbl&gt; NA, 206, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <p><strong>Your Task:</strong> Examine margins of error for demographic variables to see if some communities have less reliable data.</p>
 <p><strong>Requirements:</strong> - Calculate MOE percentages for each demographic variable - Flag tracts where any demographic variable has MOE &gt; 15% - Create summary statistics</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MOE percentages for white, Black, and Hispanic variables</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use the same formula as before (margin/estimate * 100)</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a flag for tracts with high MOE on any demographic variable</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use logical operators (| for OR) in an ifelse() statement</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create summary statistics showing how many tracts have data quality issues</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MOE percentages for white, Black, and Hispanic variables</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use the same formula as before (margin/estimate * 100)</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a flag for tracts with high MOE on any demographic variable</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use logical operators (| for OR) in an ifelse() statement</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create summary statistics showing how many tracts have data quality issues</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="pattern-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="pattern-analysis">4.2 Pattern Analysis</h2>
 <p><strong>Your Task:</strong> Investigate whether data quality problems are randomly distributed or concentrated in certain types of communities.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group tracts by whether they have high MOE issues</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average characteristics for each group:</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - population size, demographic percentages</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use group_by() and summarize() to create this comparison</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a professional table showing the patterns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group tracts by whether they have high MOE issues</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average characteristics for each group:</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - population size, demographic percentages</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use group_by() and summarize() to create this comparison</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a professional table showing the patterns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Pattern Analysis:</strong> [Describe any patterns you observe. Do certain types of communities have less reliable data? What might explain this?]</p>
 </section>
@@ -637,15 +723,15 @@ $ total_popM        &lt;dbl&gt; NA, 206, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <h2 class="anchored" data-anchor-id="specific-recommendations">6.3 Specific Recommendations</h2>
 <p><strong>Your Task:</strong> Create a decision framework for algorithm implementation.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary table using your county reliability data</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Include: county name, median income, MOE percentage, reliability category</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a new column with algorithm recommendations using case_when():</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - High Confidence: "Safe for algorithmic decisions"</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Moderate Confidence: "Use with caution - monitor outcomes"  </span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Low Confidence: "Requires manual review or additional data"</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as a professional table with kable()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary table using your county reliability data</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Include: county name, median income, MOE percentage, reliability category</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a new column with algorithm recommendations using case_when():</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - High Confidence: "Safe for algorithmic decisions"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Moderate Confidence: "Use with caution - monitor outcomes"  </span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Low Confidence: "Requires manual review or additional data"</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as a professional table with kable()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Key Recommendations:</strong></p>
 <p><strong>Your Task:</strong> Use your analysis results to provide specific guidance to the department.</p>
