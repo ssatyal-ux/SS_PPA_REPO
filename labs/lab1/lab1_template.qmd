@@ -185,18 +185,21 @@ top_variable <- ca_county_reliability %>%
 head(top_variable)
 
 # Format as table with kable() - include appropriate column names and caption
+top_variable <- ca_county_reliability %>%
+  arrange(desc(moe_pct)) %>%
+  slice(1:5)
+
 top_variable %>%
   select(
-                   County = NAME,
-                  `Median HH Income` = median_hh_incomeE,
-                  `MOE Median HH Income` = median_hh_incomeM,
-                  `Total Population` = total_popE,
-                  `MOE Total Pop` = total_popM,
-                  `Margin of Error for HH Income (%)` = moe_pct,
-                  `Reliability Category` = category,
-                  DANGER = flag
-                  ) %>%
-kable( caption = "Top 5 counties in California by HH Income MOE")
+    County,
+    `Median Household Income`,
+    `Median HH Income Margin of Error`,
+    `Total Population`,
+    `Margin of Error for HH Income (%)` = moe_pct,
+    `Reliability Category` = category,
+    DANGER = flag
+  ) %>%
+  kable(caption = "Top 5 counties in California by HH Income MOE")
 ```
 
 **Data Quality Commentary:**
@@ -219,16 +222,18 @@ kable( caption = "Top 5 counties in California by HH Income MOE")
 
 
 selected_counties <- ca_county_reliability %>%
-  filter(category %in% c("Low Confidence","Moderate Confidence", "High Confidence")) %>%
+  filter(category %in% c("Low Confidence", "Moderate Confidence", "High Confidence")) %>%
   group_by(category) %>%
-  slice(1:1) %>%
+  slice(1) %>%
   ungroup() %>%
-  select( County = NAME,
-          `Median HH Income` = median_hh_incomeE,
-          `Margin of Error for HH Income (%)` = moe_pct,
-          `Reliability Category` = category,
-          GEOID)
-tibble(selected_counties)%>%
+  select(
+    County,
+    `Median Household Income`,
+    `Margin of Error for HH Income (%)` = moe_pct,
+    `Reliability Category` = category,
+  )
+
+selected_counties %>% 
   kable()
 
 ```
