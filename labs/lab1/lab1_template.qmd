@@ -298,9 +298,7 @@ percentage_eachgroup <- selected_counties_data %>%
          `Hispanic or Latino %`="pct_Hisp", 
          `Percentage of White, Black and Hispanic Populations`,
         )
-tibble(percentage_eachgroup)%>%
-  kable()
-
+tibble(percentage_eachgroup)
 
 
 
