@@ -3998,7 +3998,7 @@ vertical-align: -.125em;
 <p>Your analysis should identify counties that should be priorities for healthcare investment and policy intervention.</p>
 </section>
 <section id="required-analysis-steps" class="level3">
-<h3 class="anchored">Required Analysis Steps</h3>
+<h3 class="anchored" data-anchor-id="required-analysis-steps">Required Analysis Steps</h3>
 <p>Complete the following analysis, documenting each step with code and brief explanations:</p>
 <section id="step-1-data-collection-5-points" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-data-collection-5-points">Step 1: Data Collection (5 points)</h4>
@@ -4046,19 +4046,17 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |                                                                      |   0%
   |                                                                            
+  |                                                                      |   1%
+  |                                                                            
   |=                                                                     |   1%
   |                                                                            
   |=                                                                     |   2%
-  |                                                                            
-  |==                                                                    |   2%
   |                                                                            
   |==                                                                    |   3%
   |                                                                            
   |===                                                                   |   4%
   |                                                                            
   |===                                                                   |   5%
-  |                                                                            
-  |====                                                                  |   5%
   |                                                                            
   |====                                                                  |   6%
   |                                                                            
@@ -4068,13 +4066,13 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |======                                                                |   9%
   |                                                                            
-  |=======                                                               |   9%
-  |                                                                            
   |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
-  |========                                                              |  12%
+  |=========                                                             |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -4363,7 +4361,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <hr>
 </section>
 <section id="step-2-get-demographic-data" class="level4">
-<h4 class="anchored">Step 2: Get Demographic Data</h4>
+<h4 class="anchored" data-anchor-id="step-2-get-demographic-data">Step 2: Get Demographic Data</h4>
 <p>Use <code>tidycensus</code> to download tract-level demographic data for Pennsylvania.</p>
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
 <p><strong>Your Task:</strong></p>
@@ -4469,11 +4467,15 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
  NA&#39;s   :62                           </code></pre>
 </div>
 </div>
-<p><strong>Questions to answer:</strong> - <strong>What year of ACS data are you using?</strong>. 2022.</p>
+<p><strong>Questions to answer:</strong>. - <strong>What year of ACS data are you using?</strong>. 2022.</p>
 <ul>
-<li><p><strong>How many tracts have missing income data?</strong>. 2023.</p></li>
-<li><h2 id="what-is-the-median-income-across-all-pa-census-tracts.-70188." class="anchored" data-anchor-id="step-2-get-demographic-data"><strong>What is the median income across all PA census tracts?</strong>. 70,188.</h2></li>
+<li><strong>How many tracts have missing income data?</strong>.
+<ol start="2023" type="1">
+<li></li>
+</ol></li>
+<li><strong>What is the median income across all PA census tracts?</strong>. 70,188.</li>
 </ul>
+<hr>
 </section>
 <section id="step-3-define-vulnerable-populations" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-define-vulnerable-populations">Step 3: Define Vulnerable Populations</h4>
