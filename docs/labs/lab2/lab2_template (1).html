@@ -4016,7 +4016,7 @@ vertical-align: -.125em;
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Load spatial data</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pa_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/Pennsylvania_County_Boundaries.shp&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -4050,11 +4050,13 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |=                                                                     |   2%
   |                                                                            
+  |==                                                                    |   2%
+  |                                                                            
   |==                                                                    |   3%
   |                                                                            
   |===                                                                   |   4%
   |                                                                            
-  |====                                                                  |   5%
+  |===                                                                   |   5%
   |                                                                            
   |====                                                                  |   6%
   |                                                                            
@@ -4064,11 +4066,15 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |======                                                                |   9%
   |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
   |=======                                                               |  10%
   |                                                                            
   |=======                                                               |  11%
   |                                                                            
-  |========                                                              |  12%
+  |========                                                              |  11%
+  |                                                                            
+  |=========                                                             |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -4403,7 +4409,7 @@ GEOGCRS[&quot;NAD83&quot;,
     ID[&quot;EPSG&quot;,4269]]</code></pre>
 </div>
 </div>
-<p><strong>Questions to answer:</strong> - How many hospitals are in your dataset? 223 hospitals - How many census tracts? 3,345 census tracts - What coordinate reference system is each dataset in? 1. PA Counties – WGS 84 2. Hospitals – WGS 84 3. Census Tracts – NAD83</p>
+<p><strong>Questions to answer:</strong> - <strong>How many hospitals are in your dataset?</strong> <strong>223 hospitals - </strong>How many census tracts?<strong> </strong>3,345 census tracts - <strong>What coordinate reference system is each dataset in?</strong> <strong>1. PA Counties – WGS 84 </strong>2. Hospitals – WGS 84 **3. Census Tracts – NAD83</p>
 <hr>
 </section>
 <section id="step-2-get-demographic-data" class="level4">
