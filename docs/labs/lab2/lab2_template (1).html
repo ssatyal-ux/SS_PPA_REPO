@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name Here">
+<meta name="author" content="Shubhanga Satyal">
 <meta name="dcterms.date" content="2026-02-20">
 
 <title>Lab 2: Spatial Analysis and Visualization – Shubhanga Satyal-MUSA 5080 Portfolio</title>
@@ -3966,7 +3966,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name Here </p>
+             <p>Shubhanga Satyal </p>
           </div>
   </div>
     
@@ -3992,7 +3992,6 @@ vertical-align: -.125em;
 </section>
 <section id="part-1-healthcare-access-for-vulnerable-populations" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-healthcare-access-for-vulnerable-populations">Part 1: Healthcare Access for Vulnerable Populations</h2>
-<p>k</p>
 <section id="research-question" class="level3">
 <h3 class="anchored" data-anchor-id="research-question">Research Question</h3>
 <p><strong>Which Pennsylvania counties have the highest proportion of vulnerable populations (elderly + low-income) living far from hospitals?</strong></p>
@@ -4007,16 +4006,404 @@ vertical-align: -.125em;
 <p><strong>Your Task:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load spatial data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all data loaded correctly</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Load spatial data</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pa_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/Pennsylvania_County_Boundaries.shp&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `Pennsylvania_County_Boundaries&#39; from data source 
+  `/Users/shubhangasatyal/Desktop/GitHub/SS_PPA_REPO/labs/lab2/data/Pennsylvania_County_Boundaries.shp&#39; 
+  using driver `ESRI Shapefile&#39;
+Simple feature collection with 67 features and 19 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -8963377 ymin: 4825316 xmax: -8314404 ymax: 5201413
+Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </div>
-<p><strong>Questions to answer:</strong> - How many hospitals are in your dataset? - How many census tracts? - What coordinate reference system is each dataset in?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/hospitals.geojson&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `hospitals&#39; from data source 
+  `/Users/shubhangasatyal/Desktop/GitHub/SS_PPA_REPO/labs/lab2/data/hospitals.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 223 features and 11 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -80.49621 ymin: 39.75163 xmax: -74.86704 ymax: 42.13403
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>census_tracts <span class="ot">&lt;-</span> <span class="fu">tracts</span>(<span class="at">state =</span> <span class="st">&quot;PA&quot;</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |=                                                                     |   1%
+  |                                                                            
+  |=                                                                     |   2%
+  |                                                                            
+  |==                                                                    |   3%
+  |                                                                            
+  |===                                                                   |   4%
+  |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
+  |====                                                                  |   6%
+  |                                                                            
+  |=====                                                                 |   7%
+  |                                                                            
+  |======                                                                |   8%
+  |                                                                            
+  |======                                                                |   9%
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
+  |                                                                            
+  |========                                                              |  12%
+  |                                                                            
+  |=========                                                             |  13%
+  |                                                                            
+  |==========                                                            |  14%
+  |                                                                            
+  |===========                                                           |  15%
+  |                                                                            
+  |===========                                                           |  16%
+  |                                                                            
+  |============                                                          |  17%
+  |                                                                            
+  |=============                                                         |  18%
+  |                                                                            
+  |=============                                                         |  19%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |===============                                                       |  21%
+  |                                                                            
+  |===============                                                       |  22%
+  |                                                                            
+  |================                                                      |  23%
+  |                                                                            
+  |=================                                                     |  24%
+  |                                                                            
+  |=================                                                     |  25%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |===================                                                   |  27%
+  |                                                                            
+  |===================                                                   |  28%
+  |                                                                            
+  |====================                                                  |  29%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |======================                                                |  31%
+  |                                                                            
+  |======================                                                |  32%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |========================                                              |  34%
+  |                                                                            
+  |========================                                              |  35%
+  |                                                                            
+  |=========================                                             |  36%
+  |                                                                            
+  |==========================                                            |  37%
+  |                                                                            
+  |==========================                                            |  38%
+  |                                                                            
+  |===========================                                           |  39%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |============================                                          |  41%
+  |                                                                            
+  |=============================                                         |  42%
+  |                                                                            
+  |==============================                                        |  42%
+  |                                                                            
+  |==============================                                        |  43%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |================================                                      |  45%
+  |                                                                            
+  |================================                                      |  46%
+  |                                                                            
+  |=================================                                     |  47%
+  |                                                                            
+  |==================================                                    |  48%
+  |                                                                            
+  |===================================                                   |  49%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |====================================                                  |  51%
+  |                                                                            
+  |=====================================                                 |  52%
+  |                                                                            
+  |=====================================                                 |  53%
+  |                                                                            
+  |======================================                                |  54%
+  |                                                                            
+  |=======================================                               |  55%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |========================================                              |  57%
+  |                                                                            
+  |=========================================                             |  58%
+  |                                                                            
+  |=========================================                             |  59%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |===========================================                           |  61%
+  |                                                                            
+  |===========================================                           |  62%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |=============================================                         |  64%
+  |                                                                            
+  |=============================================                         |  65%
+  |                                                                            
+  |==============================================                        |  66%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |===============================================                       |  68%
+  |                                                                            
+  |================================================                      |  69%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |==================================================                    |  71%
+  |                                                                            
+  |==================================================                    |  72%
+  |                                                                            
+  |===================================================                   |  73%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |=====================================================                 |  76%
+  |                                                                            
+  |======================================================                |  77%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |=======================================================               |  79%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |========================================================              |  81%
+  |                                                                            
+  |=========================================================             |  81%
+  |                                                                            
+  |==========================================================            |  82%
+  |                                                                            
+  |==========================================================            |  83%
+  |                                                                            
+  |===========================================================           |  84%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |============================================================          |  86%
+  |                                                                            
+  |=============================================================         |  87%
+  |                                                                            
+  |==============================================================        |  88%
+  |                                                                            
+  |===============================================================       |  89%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |================================================================      |  91%
+  |                                                                            
+  |=================================================================     |  92%
+  |                                                                            
+  |=================================================================     |  93%
+  |                                                                            
+  |==================================================================    |  94%
+  |                                                                            
+  |===================================================================   |  95%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |====================================================================  |  97%
+  |                                                                            
+  |===================================================================== |  98%
+  |                                                                            
+  |===================================================================== |  99%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all data loaded correctly</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pa_counties) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 67
+Columns: 20
+$ OBJECTID   &lt;int&gt; 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347,…
+$ MSLINK     &lt;int&gt; 46, 8, 9, 58, 59, 60, 62, 63, 42, 43, 44, 47, 48, 49, 50, 5…
+$ COUNTY_NAM &lt;chr&gt; &quot;MONTGOMERY&quot;, &quot;BRADFORD&quot;, &quot;BUCKS&quot;, &quot;TIOGA&quot;, &quot;UNION&quot;, &quot;VENAN…
+$ COUNTY_NUM &lt;chr&gt; &quot;46&quot;, &quot;08&quot;, &quot;09&quot;, &quot;58&quot;, &quot;59&quot;, &quot;60&quot;, &quot;62&quot;, &quot;63&quot;, &quot;42&quot;, &quot;43&quot;,…
+$ FIPS_COUNT &lt;chr&gt; &quot;091&quot;, &quot;015&quot;, &quot;017&quot;, &quot;117&quot;, &quot;119&quot;, &quot;121&quot;, &quot;125&quot;, &quot;127&quot;, &quot;08…
+$ COUNTY_ARE &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ COUNTY_PER &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ NUMERIC_LA &lt;int&gt; 5, 2, 5, 2, 2, 3, 1, 2, 1, 3, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1,…
+$ COUNTY_N_1 &lt;int&gt; 46, 8, 9, 58, 59, 60, 62, 63, 42, 43, 44, 47, 48, 49, 50, 5…
+$ AREA_SQ_MI &lt;dbl&gt; 487.4271, 1161.3379, 622.0836, 1137.2480, 319.1893, 683.367…
+$ SOUND      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ SPREAD_SHE &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ IMAGE_NAME &lt;chr&gt; &quot;poll.bmp&quot;, &quot;poll.bmp&quot;, &quot;poll.bmp&quot;, &quot;poll.bmp&quot;, &quot;poll.bmp&quot;,…
+$ NOTE_FILE  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ VIDEO      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ DISTRICT_N &lt;chr&gt; &quot;06&quot;, &quot;03&quot;, &quot;06&quot;, &quot;03&quot;, &quot;03&quot;, &quot;01&quot;, &quot;12&quot;, &quot;04&quot;, &quot;02&quot;, &quot;01&quot;,…
+$ PA_CTY_COD &lt;chr&gt; &quot;46&quot;, &quot;08&quot;, &quot;09&quot;, &quot;59&quot;, &quot;60&quot;, &quot;61&quot;, &quot;63&quot;, &quot;64&quot;, &quot;42&quot;, &quot;43&quot;,…
+$ MAINT_CTY_ &lt;chr&gt; &quot;4&quot;, &quot;9&quot;, &quot;1&quot;, &quot;7&quot;, &quot;8&quot;, &quot;5&quot;, &quot;4&quot;, &quot;6&quot;, &quot;5&quot;, &quot;4&quot;, &quot;7&quot;, &quot;3&quot;,…
+$ DISTRICT_O &lt;chr&gt; &quot;6-4&quot;, &quot;3-9&quot;, &quot;6-1&quot;, &quot;3-7&quot;, &quot;3-8&quot;, &quot;1-5&quot;, &quot;12-4&quot;, &quot;4-6&quot;, &quot;2…
+$ geometry   &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8398884 48..., MULTIPOLYGON (…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(hospitals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 223
+Columns: 12
+$ CHIEF_EXEC &lt;chr&gt; &quot;Peter J Adamo&quot;, &quot;Autumn DeShields&quot;, &quot;Shawn Parekh&quot;, &quot;DIANE…
+$ CHIEF_EX_1 &lt;chr&gt; &quot;President&quot;, &quot;Chief Executive Officer&quot;, &quot;Chief Executive Of…
+$ FACILITY_U &lt;chr&gt; &quot;https://www.phhealthcare.org&quot;, &quot;https://www.malvernbh.com&quot;…
+$ LONGITUDE  &lt;dbl&gt; -79.91131, -75.17005, -75.20963, -80.27907, -79.02513, -75.…
+$ COUNTY     &lt;chr&gt; &quot;Washington&quot;, &quot;Philadelphia&quot;, &quot;Philadelphia&quot;, &quot;Washington&quot;,…
+$ FACILITY_N &lt;chr&gt; &quot;Penn Highlands Mon Valley&quot;, &quot;MALVERN BEHAVIORAL HEALTH&quot;, &quot;…
+$ STREET     &lt;chr&gt; &quot;1163 Country Club Road&quot;, &quot;1930 South Broad Street Unit 4&quot;,…
+$ CITY_OR_BO &lt;chr&gt; &quot;Monongahela&quot;, &quot;Philadelphia&quot;, &quot;Philadelphia&quot;, &quot;WASHINGTON&quot;…
+$ LATITUDE   &lt;dbl&gt; 40.18193, 39.92619, 40.02869, 40.15655, 39.80913, 40.24273,…
+$ TELEPHONE_ &lt;chr&gt; &quot;724-258-1000&quot;, &quot;610-480-8919&quot;, &quot;215-483-9900&quot;, &quot;7248840710…
+$ ZIP_CODE   &lt;chr&gt; &quot;15063&quot;, &quot;19145&quot;, &quot;19128&quot;, &quot;15301&quot;, &quot;15552&quot;, &quot;19464&quot;, &quot;1776…
+$ geometry   &lt;POINT [°]&gt; POINT (-79.91131 40.18193), POINT (-75.17005 39.9262)…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(census_tracts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,445
+Columns: 14
+$ STATEFP    &lt;chr&gt; &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;,…
+$ COUNTYFP   &lt;chr&gt; &quot;001&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;011&quot;, &quot;011&quot;, &quot;011&quot;, &quot;01…
+$ TRACTCE    &lt;chr&gt; &quot;031101&quot;, &quot;100400&quot;, &quot;100500&quot;, &quot;100800&quot;, &quot;101900&quot;, &quot;011200&quot;,…
+$ GEOIDFQ    &lt;chr&gt; &quot;1400000US42001031101&quot;, &quot;1400000US42013100400&quot;, &quot;1400000US4…
+$ GEOID      &lt;chr&gt; &quot;42001031101&quot;, &quot;42013100400&quot;, &quot;42013100500&quot;, &quot;42013100800&quot;,…
+$ NAME       &lt;chr&gt; &quot;311.01&quot;, &quot;1004&quot;, &quot;1005&quot;, &quot;1008&quot;, &quot;1019&quot;, &quot;112&quot;, &quot;2&quot;, &quot;115&quot;…
+$ NAMELSAD   &lt;chr&gt; &quot;Census Tract 311.01&quot;, &quot;Census Tract 1004&quot;, &quot;Census Tract 1…
+$ STUSPS     &lt;chr&gt; &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;,…
+$ NAMELSADCO &lt;chr&gt; &quot;Adams County&quot;, &quot;Blair County&quot;, &quot;Blair County&quot;, &quot;Blair Coun…
+$ STATE_NAME &lt;chr&gt; &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &quot;Pennsylvan…
+$ LSAD       &lt;chr&gt; &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;,…
+$ ALAND      &lt;dbl&gt; 3043185, 993724, 1130204, 996553, 573726, 1539365, 1949529,…
+$ AWATER     &lt;dbl&gt; 0, 0, 0, 0, 0, 9308, 159015, 12469, 0, 0, 0, 1271, 6352, 74…
+$ geometry   &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-77.03108 3..., MULTIPOLYGON (…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(pa_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: WGS 84 / Pseudo-Mercator 
+  wkt:
+PROJCRS[&quot;WGS 84 / Pseudo-Mercator&quot;,
+    BASEGEOGCRS[&quot;WGS 84&quot;,
+        ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+            MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
+            MEMBER[&quot;World Geodetic System 1984 (G2296)&quot;],
+            ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+                LENGTHUNIT[&quot;metre&quot;,1]],
+            ENSEMBLEACCURACY[2.0]],
+        PRIMEM[&quot;Greenwich&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        ID[&quot;EPSG&quot;,4326]],
+    CONVERSION[&quot;Popular Visualisation Pseudo-Mercator&quot;,
+        METHOD[&quot;Popular Visualisation Pseudo Mercator&quot;,
+            ID[&quot;EPSG&quot;,1024]],
+        PARAMETER[&quot;Latitude of natural origin&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8801]],
+        PARAMETER[&quot;Longitude of natural origin&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8802]],
+        PARAMETER[&quot;False easting&quot;,0,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8806]],
+        PARAMETER[&quot;False northing&quot;,0,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8807]]],
+    CS[Cartesian,2],
+        AXIS[&quot;easting (X)&quot;,east,
+            ORDER[1],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        AXIS[&quot;northing (Y)&quot;,north,
+            ORDER[2],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+    USAGE[
+        SCOPE[&quot;Web mapping and visualisation.&quot;],
+        AREA[&quot;World between 85.06°S and 85.06°N.&quot;],
+        BBOX[-85.06,-180,85.06,180]],
+    ID[&quot;EPSG&quot;,3857]]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(hospitals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: WGS 84 
+  wkt:
+GEOGCRS[&quot;WGS 84&quot;,
+    DATUM[&quot;World Geodetic System 1984&quot;,
+        ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+            LENGTHUNIT[&quot;metre&quot;,1]]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+            ORDER[1],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+            ORDER[2],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    ID[&quot;EPSG&quot;,4326]]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(census_tracts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: NAD83 
+  wkt:
+GEOGCRS[&quot;NAD83&quot;,
+    DATUM[&quot;North American Datum 1983&quot;,
+        ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+            LENGTHUNIT[&quot;metre&quot;,1]]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS[&quot;latitude&quot;,north,
+            ORDER[1],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        AXIS[&quot;longitude&quot;,east,
+            ORDER[2],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    ID[&quot;EPSG&quot;,4269]]</code></pre>
+</div>
+</div>
+<p><strong>Questions to answer:</strong> - How many hospitals are in your dataset? 223 hospitals - How many census tracts? 3,345 census tracts - What coordinate reference system is each dataset in? 1. PA Counties – WGS 84 2. Hospitals – WGS 84 3. Census Tracts – NAD83</p>
 <hr>
 </section>
 <section id="step-2-get-demographic-data" class="level4">
@@ -4025,12 +4412,12 @@ vertical-align: -.125em;
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What year of ACS data are you using? - How many tracts have missing income data? - What is the median income across all PA census tracts?</p>
 <hr>
@@ -4040,7 +4427,7 @@ vertical-align: -.125em;
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What income threshold did you choose and why? - What elderly population threshold did you choose and why? - How many tracts meet your vulnerability criteria? - What percentage of PA census tracts are considered vulnerable by your definition?</p>
 <hr>
@@ -4050,10 +4437,10 @@ vertical-align: -.125em;
 <p>For each vulnerable tract, calculate the distance to the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use an appropriate projected coordinate system for Pennsylvania - Calculate distances in miles - Explain why you chose your projection</p>
 <p><strong>Questions to answer:</strong> - What is the average distance to the nearest hospital for vulnerable tracts? - What is the maximum distance? - How many vulnerable tracts are more than 15 miles from the nearest hospital?</p>
@@ -4064,7 +4451,7 @@ vertical-align: -.125em;
 <p>Define “underserved” as vulnerable tracts that are more than 15 miles from the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - How many tracts are underserved? - What percentage of vulnerable tracts are underserved? - Does this surprise you? Why or why not?</p>
 <hr>
@@ -4074,10 +4461,10 @@ vertical-align: -.125em;
 <p>Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Required county-level statistics:</strong> - Number of vulnerable tracts - Number of underserved tracts<br>
 - Percentage of vulnerable tracts that are underserved - Average distance to nearest hospital for vulnerable tracts - Total vulnerable population</p>
@@ -4089,7 +4476,7 @@ vertical-align: -.125em;
 <p>Create a professional table showing the top 10 priority counties for healthcare investment.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use <code>knitr::kable()</code> or similar for formatting - Include descriptive column names - Format numbers appropriately (commas for population, percentages, etc.) - Add an informative caption - Sort by priority (you decide the metric)</p>
 <hr>
@@ -4104,7 +4491,7 @@ vertical-align: -.125em;
 <p>Create a choropleth map showing healthcare access challenges at the county level.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Fill counties by percentage of vulnerable tracts that are underserved - Include hospital locations as points - Use an appropriate color scheme - Include clear title, subtitle, and caption - Use <code>theme_void()</code> or similar clean theme - Add a legend with formatted labels</p>
 <hr>
@@ -4114,7 +4501,7 @@ vertical-align: -.125em;
 <p>Create a map highlighting underserved vulnerable tracts.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Show underserved vulnerable tracts in a contrasting color - Include county boundaries for context - Show hospital locations - Use appropriate visual hierarchy (what should stand out?) - Include informative title and subtitle</p>
 <hr>
@@ -4124,7 +4511,7 @@ vertical-align: -.125em;
 <p>Create a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Suggested chart types:</strong> - Histogram or density plot of distances - Box plot comparing distances across regions - Bar chart of underserved tracts by county - Scatter plot of distance vs. vulnerable population size</p>
 <p><strong>Requirements:</strong> - Clear axes labels with units - Appropriate title - Professional formatting - Brief interpretation (1-2 sentences as a caption or in text)</p>
@@ -4196,7 +4583,7 @@ vertical-align: -.125em;
 </ul></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What dataset did you choose and why? - What is the data source and date? - How many features does it contain? - What CRS is it in? Did you need to transform it?</p>
 <hr>
@@ -4213,7 +4600,7 @@ vertical-align: -.125em;
 <p><strong>Required operations (choose 2+):</strong> - Buffers - Spatial joins - Spatial filtering with predicates - Distance calculations - Intersections or unions - Point-in-polygon aggregation</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Analysis requirements:</strong> - Clear code comments explaining each step - Appropriate CRS transformations - Summary statistics or counts - At least one map showing your findings - Brief interpretation of results (3-5 sentences)</p>
 <p><strong>Your interpretation:</strong></p>
