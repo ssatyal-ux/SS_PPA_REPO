@@ -74,6 +74,8 @@ census_tracts <- st_transform(census_tracts, st_crs(pa_counties))
 glimpse(pa_counties) 
 glimpse(hospitals)
 glimpse(census_tracts)
+head(census_tracts)%>%
+  kable()
 
 st_crs(pa_counties)
 ```
