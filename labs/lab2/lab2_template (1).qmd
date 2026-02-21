@@ -143,9 +143,14 @@ demographic_data <- get_acs(
     pop_65plusM
   )
 
+head(demographic_data)
+
 # Join to tract boundaries
+join_tract_boundaries <- census_tracts %>%
+  left_join(demographic_data, by = "GEOID")
 
-
+head(join_tract_boundaries)%>%
+  kable()
 
 
 ```

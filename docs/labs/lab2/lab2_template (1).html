@@ -4050,25 +4050,37 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |=                                                                     |   2%
   |                                                                            
+  |==                                                                    |   2%
+  |                                                                            
   |==                                                                    |   3%
   |                                                                            
   |===                                                                   |   4%
   |                                                                            
   |===                                                                   |   5%
   |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
   |====                                                                  |   6%
   |                                                                            
   |=====                                                                 |   7%
+  |                                                                            
+  |=====                                                                 |   8%
   |                                                                            
   |======                                                                |   8%
   |                                                                            
   |======                                                                |   9%
   |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
   |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
   |========                                                              |  12%
+  |                                                                            
+  |=========                                                             |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -4428,7 +4440,216 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    pop_65plusM</span>
 <span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demographic_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  GEOID       NAME               t_pE  t_pM   m_iE  m_iM pop_65plusE pop_65plusM
+  &lt;chr&gt;       &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+1 42001030101 Census Tract 301…  2658    14  80231 12428         521        112.
+2 42001030103 Census Tract 301…  2416   329 111603 13757         467        229.
+3 42001030104 Census Tract 301…  3395   332  81150 37724         730        200.
+4 42001030200 Census Tract 302…  5475   464  68363  3192        1020        180.
+5 42001030300 Census Tract 303…  4412   215  81577  6735         722        154.
+6 42001030400 Census Tract 304…  5462   206  88558 15104        1206        270.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>join_tract_boundaries <span class="ot">&lt;-</span> census_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(demographic_data, <span class="at">by =</span> <span class="st">&quot;GEOID&quot;</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(join_tract_boundaries)<span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 2%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 1%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 18%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">STATEFP</th>
+<th style="text-align: left;">COUNTYFP</th>
+<th style="text-align: left;">TRACTCE</th>
+<th style="text-align: left;">GEOIDFQ</th>
+<th style="text-align: left;">GEOID</th>
+<th style="text-align: left;">NAME.x</th>
+<th style="text-align: left;">NAMELSAD</th>
+<th style="text-align: left;">STUSPS</th>
+<th style="text-align: left;">NAMELSADCO</th>
+<th style="text-align: left;">STATE_NAME</th>
+<th style="text-align: left;">LSAD</th>
+<th style="text-align: right;">ALAND</th>
+<th style="text-align: right;">AWATER</th>
+<th style="text-align: left;">NAME.y</th>
+<th style="text-align: right;">t_pE</th>
+<th style="text-align: right;">t_pM</th>
+<th style="text-align: right;">m_iE</th>
+<th style="text-align: right;">m_iM</th>
+<th style="text-align: right;">pop_65plusE</th>
+<th style="text-align: right;">pop_65plusM</th>
+<th style="text-align: left;">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">001</td>
+<td style="text-align: left;">031101</td>
+<td style="text-align: left;">1400000US42001031101</td>
+<td style="text-align: left;">42001031101</td>
+<td style="text-align: left;">311.01</td>
+<td style="text-align: left;">Census Tract 311.01</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Adams County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">3043185</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 311.01; Adams County; Pennsylvania</td>
+<td style="text-align: right;">5070</td>
+<td style="text-align: right;">358</td>
+<td style="text-align: right;">61847</td>
+<td style="text-align: right;">8600</td>
+<td style="text-align: right;">946</td>
+<td style="text-align: right;">250.30182</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8575060 48…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">100400</td>
+<td style="text-align: left;">1400000US42013100400</td>
+<td style="text-align: left;">42013100400</td>
+<td style="text-align: left;">1004</td>
+<td style="text-align: left;">Census Tract 1004</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">993724</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1004; Blair County; Pennsylvania</td>
+<td style="text-align: right;">1589</td>
+<td style="text-align: right;">253</td>
+<td style="text-align: right;">67120</td>
+<td style="text-align: right;">12405</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: right;">90.16651</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8730207 49…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">100500</td>
+<td style="text-align: left;">1400000US42013100500</td>
+<td style="text-align: left;">42013100500</td>
+<td style="text-align: left;">1005</td>
+<td style="text-align: left;">Census Tract 1005</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">1130204</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1005; Blair County; Pennsylvania</td>
+<td style="text-align: right;">3380</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: right;">50450</td>
+<td style="text-align: right;">5089</td>
+<td style="text-align: right;">463</td>
+<td style="text-align: right;">105.41347</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8729297 49…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">100800</td>
+<td style="text-align: left;">1400000US42013100800</td>
+<td style="text-align: left;">42013100800</td>
+<td style="text-align: left;">1008</td>
+<td style="text-align: left;">Census Tract 1008</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">996553</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1008; Blair County; Pennsylvania</td>
+<td style="text-align: right;">1860</td>
+<td style="text-align: right;">256</td>
+<td style="text-align: right;">64583</td>
+<td style="text-align: right;">19957</td>
+<td style="text-align: right;">282</td>
+<td style="text-align: right;">77.56932</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8728636 49…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">101900</td>
+<td style="text-align: left;">1400000US42013101900</td>
+<td style="text-align: left;">42013101900</td>
+<td style="text-align: left;">1019</td>
+<td style="text-align: left;">Census Tract 1019</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">573726</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1019; Blair County; Pennsylvania</td>
+<td style="text-align: right;">1436</td>
+<td style="text-align: right;">196</td>
+<td style="text-align: right;">16429</td>
+<td style="text-align: right;">2414</td>
+<td style="text-align: right;">636</td>
+<td style="text-align: right;">157.65151</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8728378 49…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">011</td>
+<td style="text-align: left;">011200</td>
+<td style="text-align: left;">1400000US42011011200</td>
+<td style="text-align: left;">42011011200</td>
+<td style="text-align: left;">112</td>
+<td style="text-align: left;">Census Tract 112</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Berks County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">1539365</td>
+<td style="text-align: right;">9308</td>
+<td style="text-align: left;">Census Tract 112; Berks County; Pennsylvania</td>
+<td style="text-align: right;">4533</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">56818</td>
+<td style="text-align: right;">7404</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">138.31847</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8455198 49…</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <p><strong>Questions to answer:</strong> - What year of ACS data are you using? - How many tracts have missing income data? - What is the median income across all PA census tracts?</p>
 <hr>
@@ -4438,7 +4659,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What income threshold did you choose and why? - What elderly population threshold did you choose and why? - How many tracts meet your vulnerability criteria? - What percentage of PA census tracts are considered vulnerable by your definition?</p>
 <hr>
@@ -4448,10 +4669,10 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>For each vulnerable tract, calculate the distance to the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use an appropriate projected coordinate system for Pennsylvania - Calculate distances in miles - Explain why you chose your projection</p>
 <p><strong>Questions to answer:</strong> - What is the average distance to the nearest hospital for vulnerable tracts? - What is the maximum distance? - How many vulnerable tracts are more than 15 miles from the nearest hospital?</p>
@@ -4462,7 +4683,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Define “underserved” as vulnerable tracts that are more than 15 miles from the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - How many tracts are underserved? - What percentage of vulnerable tracts are underserved? - Does this surprise you? Why or why not?</p>
 <hr>
@@ -4472,10 +4693,10 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Required county-level statistics:</strong> - Number of vulnerable tracts - Number of underserved tracts<br>
 - Percentage of vulnerable tracts that are underserved - Average distance to nearest hospital for vulnerable tracts - Total vulnerable population</p>
@@ -4487,7 +4708,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Create a professional table showing the top 10 priority counties for healthcare investment.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use <code>knitr::kable()</code> or similar for formatting - Include descriptive column names - Format numbers appropriately (commas for population, percentages, etc.) - Add an informative caption - Sort by priority (you decide the metric)</p>
 <hr>
@@ -4502,7 +4723,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Create a choropleth map showing healthcare access challenges at the county level.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Fill counties by percentage of vulnerable tracts that are underserved - Include hospital locations as points - Use an appropriate color scheme - Include clear title, subtitle, and caption - Use <code>theme_void()</code> or similar clean theme - Add a legend with formatted labels</p>
 <hr>
@@ -4512,7 +4733,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Create a map highlighting underserved vulnerable tracts.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Show underserved vulnerable tracts in a contrasting color - Include county boundaries for context - Show hospital locations - Use appropriate visual hierarchy (what should stand out?) - Include informative title and subtitle</p>
 <hr>
@@ -4522,7 +4743,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p>Create a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Suggested chart types:</strong> - Histogram or density plot of distances - Box plot comparing distances across regions - Bar chart of underserved tracts by county - Scatter plot of distance vs. vulnerable population size</p>
 <p><strong>Requirements:</strong> - Clear axes labels with units - Appropriate title - Professional formatting - Brief interpretation (1-2 sentences as a caption or in text)</p>
@@ -4594,7 +4815,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 </ul></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What dataset did you choose and why? - What is the data source and date? - How many features does it contain? - What CRS is it in? Did you need to transform it?</p>
 <hr>
@@ -4611,7 +4832,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <p><strong>Required operations (choose 2+):</strong> - Buffers - Spatial joins - Spatial filtering with predicates - Distance calculations - Intersections or unions - Point-in-polygon aggregation</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Analysis requirements:</strong> - Clear code comments explaining each step - Appropriate CRS transformations - Summary statistics or counts - At least one map showing your findings - Brief interpretation of results (3-5 sentences)</p>
 <p><strong>Your interpretation:</strong></p>
