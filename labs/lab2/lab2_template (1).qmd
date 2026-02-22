@@ -414,10 +414,14 @@ health_care <- new_spatial_join %>%
   st_drop_geometry() %>%
   arrange(desc(pct_underserved), desc(avg_dist)) %>%
   slice_head(n = 10) %>%
+  mutate(
+    total_vul_pop = comma(total_vul_pop)
+    )%>%
   select(
     `County Name` = COUNTY_NAM,
     `Avg Distance from Nearest Hospital (miles)`= avg_dist,
-    pct_underserved
+    `Percent Underserved` = pct_underserved,
+    `Population` = total_vul_pop
   )
 
 health_care%>%
