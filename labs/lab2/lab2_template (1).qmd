@@ -232,12 +232,31 @@ For each vulnerable tract, calculate the distance to the nearest hospital.
 **Your Task:**
 ```{r}
 # Transform to appropriate projected CRS
-
+hos <- st_transform(hospitals, 3365)
+vul <- st_transform(identify_vulnerability, 3365)
 
 # Calculate distance from each tract centroid to nearest hospital
+vul_new <- vul %>%
+  filter(category == "Vulnerable") %>% 
+  mutate(
+    dist_near_hos = as.numeric(st_distance(
+      st_centroid(.), st_union(hos)
+    )) / 1609.34
+    )
+glimpse(vul_new)
 
+new_summary <- vul_new %>%
+  select(dist_near_hos)%>%
+  summary()
 
+new_summary
 
+dist_15 <- vul_new%>%
+  filter(dist_near_hos > 15 )%>%
+  count()%>%
+  select(n) %>%
+  st_drop_geometry(.)
+dist_15
 
 ```
 
@@ -246,11 +265,19 @@ For each vulnerable tract, calculate the distance to the nearest hospital.
 - Calculate distances in miles
 - Explain why you chose your projection
 
-**Questions to answer:**
-- What is the average distance to the nearest hospital for vulnerable tracts?
-- What is the maximum distance?
-- How many vulnerable tracts are more than 15 miles from the nearest hospital?
+**I chose my projection because it is the apt projection for Pennsylvania South.**
 
+**Questions to answer:**
+- What is the average distance to the nearest hospital for vulnerable tracts?  14.88 Miles
+
+
+- What is the maximum distance?  
+  84.06 Miles
+
+
+
+- How many vulnerable tracts are more than 15 miles from the nearest hospital?
+  85
 ---
 
 #### Step 5: Identify Underserved Areas 
@@ -261,15 +288,36 @@ Define "underserved" as vulnerable tracts that are more than 15 miles from the n
 ```{r}
 # Create underserved variable
 
+underserved <- vul_new %>%
+  mutate(
+    serv_under_or = case_when(
+      dist_near_hos > 15 ~ "underserved",
+      TRUE ~ " "
+    )
+  )
 
+new1_summary <- underserved %>%
+  count(serv_under_or)%>%
+  mutate (
+    underserv_pct = (n/sum(n)*100)
+  )
 
+glimpse(new1_summary)%>%
+  kable()
 
 ```
 
 **Questions to answer:**
-- How many tracts are underserved?
-- What percentage of vulnerable tracts are underserved?
-- Does this surprise you? Why or why not?
+- **How many tracts are underserved?**
+  85 are underserved
+
+
+- **What percentage of vulnerable tracts are underserved?**. 
+  31.1% are underserved
+  
+- **Does this surprise you? Why or why not?**. 
+
+  I do not have any context for "surprise" here, however I am conerned that     31% areas are underserved. Therefore more intervention and planning is        required. 
 
 ---
 
