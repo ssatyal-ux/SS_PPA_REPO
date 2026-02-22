@@ -4054,7 +4054,7 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |===                                                                   |   4%
   |                                                                            
-  |====                                                                  |   5%
+  |===                                                                   |   5%
   |                                                                            
   |====                                                                  |   6%
   |                                                                            
@@ -4064,13 +4064,15 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |======                                                                |   9%
   |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
   |=======                                                               |  10%
   |                                                                            
-  |=======                                                               |  11%
+  |========                                                              |  11%
   |                                                                            
   |========                                                              |  12%
   |                                                                            
-  |=========                                                             |  12%
+  |=========                                                             |  13%
   |                                                                            
   |==========                                                            |  14%
   |                                                                            
@@ -5198,7 +5200,7 @@ $ geometry          &lt;GEOMETRY [US_survey_foot]&gt; MULTIPOLYGON (((1354025 32
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">County Name</span><span class="st">`</span> <span class="ot">=</span> COUNTY_NAM,</span>
 <span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance from Nearest Hospital (miles)</span><span class="st">`</span><span class="ot">=</span> avg_dist,</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Percent Underserved</span><span class="st">`</span> <span class="ot">=</span> pct_underserved,</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Percent Underserved Tracts among those Vulnerable</span><span class="st">`</span> <span class="ot">=</span> pct_underserved,</span>
 <span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Population</span><span class="st">`</span> <span class="ot">=</span> total_vul_pop</span>
 <span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
@@ -5211,16 +5213,16 @@ $ geometry          &lt;GEOMETRY [US_survey_foot]&gt; MULTIPOLYGON (((1354025 32
 <table class="caption-top table table-sm table-striped small">
 <caption>Priority Table for Healthcare Investments</caption>
 <colgroup>
-<col style="width: 16%">
-<col style="width: 48%">
-<col style="width: 22%">
 <col style="width: 12%">
+<col style="width: 36%">
+<col style="width: 42%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">County Name</th>
 <th style="text-align: right;">Avg Distance from Nearest Hospital (miles)</th>
-<th style="text-align: right;">Percent Underserved</th>
+<th style="text-align: right;">Percent Underserved Tracts among those Vulnerable</th>
 <th style="text-align: left;">Population</th>
 </tr>
 </thead>

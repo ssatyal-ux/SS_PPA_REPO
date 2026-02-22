@@ -420,7 +420,7 @@ health_care <- new_spatial_join %>%
   select(
     `County Name` = COUNTY_NAM,
     `Avg Distance from Nearest Hospital (miles)`= avg_dist,
-    `Percent Underserved` = pct_underserved,
+    `Percent Underserved Tracts among those Vulnerable` = pct_underserved,
     `Population` = total_vul_pop
   )
 
