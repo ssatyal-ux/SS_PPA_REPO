@@ -409,8 +409,22 @@ Create a professional table showing the top 10 priority counties for healthcare 
 ```{r}
 # Create and format priority counties table
 
+names(new_spatial_join)
+health_care <- new_spatial_join %>%
+  st_drop_geometry() %>%
+  arrange(desc(pct_underserved), desc(avg_dist)) %>%
+  slice_head(n = 10) %>%
+  select(
+    `County Name` = COUNTY_NAM,
+    `Avg Distance from Nearest Hospital (miles)`= avg_dist,
+    pct_underserved
+  )
 
-
+health_care%>%
+  kable(
+    digits = 0,
+    caption = "Priority Table for Healthcare Investments"
+        )
 
 ```
 
