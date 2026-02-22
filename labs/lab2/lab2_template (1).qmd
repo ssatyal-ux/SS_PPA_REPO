@@ -413,7 +413,7 @@ names(new_spatial_join)
 health_care <- new_spatial_join %>%
   st_drop_geometry() %>%
   arrange(desc(pct_underserved), desc(avg_dist)) %>%
-  slice_head(n = 20) %>%
+  slice_head(n = 10) %>%
   mutate(
     total_vul_pop = comma(total_vul_pop)
     )%>%
