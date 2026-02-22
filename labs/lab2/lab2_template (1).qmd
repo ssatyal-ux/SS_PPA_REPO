@@ -366,7 +366,8 @@ new_spatial_join%>%
 glimpse(new_spatial_join)
 
 county_map_data <- pcounty %>%
-  left_join(st_drop_geometry(new_spatial_join), by = "COUNTY_NAM")
+  left_join(
+    st_drop_geometry(new_spatial_join), by = "COUNTY_NAM")
 
 ggplot() +
   geom_sf(data = county_map_data, aes(fill = pct_underserved), color = "white") +
@@ -455,7 +456,13 @@ Create a choropleth map showing healthcare access challenges at the county level
 ```{r}
 # Create county-level access map
 
-
+ggplot() +
+  geom_sf(data = county_map_data, aes(fill = pct_underserved), color = "lightgray") +
+  geom_sf(data = hos, aes(color = "Hospitals"), size = 0.8, alpha = 0.9) +
+  scale_color_manual(name = "", values = c("Hospitals" = "steelblue")) +
+  scale_fill_gradient(name = "% Underserved Tracts among Vulnerable Tracts", low = "lightyellow", high = "darkred", na.value = "lightyellow") +
+  labs(title = "Underserved Vulnerable Populations by County") +
+  theme_void()
 
 
 ```
