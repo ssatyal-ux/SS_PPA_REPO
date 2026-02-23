@@ -64,6 +64,7 @@ library(knitr)
 # Load spatial data
 
 #| message: false
+#| results: hide
 pa_counties <- st_read("data/Pennsylvania_County_Boundaries.shp")
 hospitals <- st_read("data/hospitals.geojson")
 census_tracts <- tracts(state = "PA", cb = TRUE)
