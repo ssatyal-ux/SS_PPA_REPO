@@ -126,13 +126,8 @@ demographic_data <- get_acs(
   mutate(
     pop_65plusE =
       aE + bE + cE + dE + eE + fE +
-      gE + hE + iE + jE + kE + lE,
-    pop_65plusM =
-      sqrt(
-        aM^2 + bM^2 + cM^2 + dM^2 + eM^2 + fM^2 +
-        gM^2 + hM^2 + iM^2 + jM^2 + kM^2 + lM^2
-      )
-  ) %>%
+      gE + hE + iE + jE + kE + lE
+      ) %>%
   select(
     GEOID,
     NAME,
@@ -140,8 +135,7 @@ demographic_data <- get_acs(
     total_populationM,
     median_incomeE,
     median_incomeM,
-    pop_65plusE,
-    pop_65plusM
+    pop_65plusE
   )
 
 head(demographic_data)
@@ -461,12 +455,12 @@ ggplot() +
   geom_sf(data = hos, aes(color = "Hospitals"), size = 0.5, alpha = 0.5) +
   scale_fill_gradient(name = "%", low = "lightyellow", high = "gold", na.value = "lightyellow") +
   scale_color_manual(name = "", values = c("Hospitals" = "red")) +
+  guides(fill = guide_colorbar(order = 2), color = guide_legend(order = 1)) +
   labs(
     title = "Underserved Vulnerable Tracts",
-    subtitle = "This chlopleth only represents % of vulnerable counties that are underserved"
+    subtitle = "This choropleth only represents % of vulnerable counties that are underserved"
   ) +
   theme_void()
-
 
 ```
 
@@ -491,8 +485,9 @@ ggplot() +
   geom_sf(data = county_map_data, fill = "white", color = "black") +
   geom_sf(data = underserved, aes(fill = serv_under_or), color = NA) +
   geom_sf(data = hos, aes(color = "Hospitals"), size = 0.5, alpha = 0.5) +
-  scale_color_manual(name = "", values = c("Hospitals" = "red")) +
   scale_fill_manual(name = "Status", values = c("underserved" = "gold", "vulnerable but served" = "yellow")) +
+  scale_color_manual(name = "", values = c("Hospitals" = "red")) +
+  guides(fill = guide_legend(order = 2), color = guide_legend(order = 1)) +
   labs(
     title = "Underserved Vulnerable Tracts",
     subtitle = "gold tracts are vulnerable and more than 15 miles from a hospital (underserved)"
@@ -520,8 +515,19 @@ Create a visualization showing the distribution of distances to hospitals for vu
 ```{r}
 # Create distribution visualization
 
-
-
+ggplot(vul_new) +
+  aes(x = dist_near_hos) +
+  geom_histogram(bins = 25, fill = "gold", color = "black", alpha = 0.7) +
+   geom_vline(xintercept = 15, color = "red", linetype = "dashed") +
+  labs(
+    title = "Distribution of Distances to Nearest Hospital",
+    x = "Distance to Nearest Hospital (miles)",
+    y = "Number of Vulnerable Tracts",
+    subtitle = "red line represents the 15 mile threshold for underserved",
+    caption = "most vulnerable census tracts have access to a hospital within 25 miles,
+    with high concentration of around 90 tracts with hospital within 5-10 miles"
+  ) +
+  theme_minimal()
 
 ```
 
