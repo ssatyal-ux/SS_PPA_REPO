@@ -63,11 +63,10 @@ library(patchwork)
 library(knitr)
 # Load spatial data
 
-#| message: false
-#| results: hide
+
 pa_counties <- st_read("data/Pennsylvania_County_Boundaries.shp")
 hospitals <- st_read("data/hospitals.geojson")
-census_tracts <- suppressMessages(tracts(state = "PA", cb = TRUE))
+census_tracts <- tracts(state = "PA", cb = TRUE)
 
 
 hospitals <- st_transform(hospitals, st_crs(pa_counties))
@@ -559,12 +558,12 @@ Create a visualization showing the distribution of distances to hospitals for vu
 ggplot(vul_new) +
   aes(x = dist_near_hos) +
   geom_histogram(bins = 25, fill = "navy", color = "white", alpha = 0.7) +
-   geom_vline(xintercept = 15, color = "green", linetype = "dashed") +
+   geom_vline(xintercept = 15, color = "red", linetype = "dashed") +
   labs(
     title = "Distribution of Distances to Nearest Hospital",
     x = "Distance to Nearest Hospital (miles)",
     y = "Number of Vulnerable Tracts",
-    subtitle = "green line represents the 15 mile threshold for underserved",
+    subtitle = "red line represents the 15 mile threshold for underserved",
     caption = "most vulnerable census tracts have access to a hospital within 25 miles,
     with high concentration of around 90 tracts with hospital within 5-10 miles"
   ) +
@@ -697,6 +696,15 @@ Choose ONE of the following challenge exercises, or propose your own research qu
 
 **Your Task:**
 
+#### Infrastructure & Services
+
+**Option E: Polling Place Accessibility**
+- **Data:** Polling Places, SEPTA stops, Census tracts (elderly population, disability rates)
+- **Question:** "Are polling places accessible for elderly and disabled voters?"
+- **Operations:** Buffer polling places and transit stops, identify vulnerable populations, find areas lacking access
+- **Policy relevance:** Voting rights, election infrastructure, ADA compliance
+
+
 1. **Find and load additional data**
    - Document your data source
    - Check and standardize the CRS
@@ -705,27 +713,38 @@ Choose ONE of the following challenge exercises, or propose your own research qu
 ```{r}
 # Load your additional dataset
 
+phil_censustract <- st_read("data/Census_Tracts_2010-shp (3)")
+polling_places <- st_read("data/polling_places")
+transit_stops <- st_read("data/Transit_Stops_(Spring_2025)")
 
-
+shub <- st_transform(phil_censustract, 3365)
+dhub <- st_transform(polling_places,3365)
+lhub <- st_transform(transit_stops,3365)
 
 ```
 
 **Questions to answer:**
-- What dataset did you choose and why?
-- What is the data source and date?
-- How many features does it contain?
-- What CRS is it in? Did you need to transform it?
+- **What dataset did you choose and why?**. 
+   
+   I chose polling places, transit stops and census tracts(for Philadelphia) to analyze voting accessibility. 
+
+- **What is the data source and date?**
+    
+  The data here are shape files from OpenDataPhilly, all transit Stops as of 2025, census tracts as of 2010, polling places (no date available) 
+  
+- **How many features does it contain?**
+   Census Tract (384), Polling Places (1,703), Transit Stops (22,478)
+
+- **What CRS is it in? Did you need to transform it?**
+   I transformed all to 3365 (NAD83)
 
 ---
 
-2. **Pose a research question**
+2. **Pose a research question**.  
+   
+   
+   Do elderly and disabled populations have adequate access to polling places via public transit?
 
-Write a clear research statement that your analysis will answer.
-
-**Examples:**
-- "Do vulnerable tracts have adequate public transit access to hospitals?"
-- "Are EMS stations appropriately located near vulnerable populations?"
-- "Do areas with low vehicle access have worse hospital access?"
 
 ---
 
@@ -746,9 +765,102 @@ Use at least TWO spatial operations to answer your research question.
 # Your spatial analysis
 
 
+                                       #demographic data from census data using get_acs
+
+a_demographic_data <- get_acs(
+  geography = "tract",
+  state = "PA",
+  county = "PHILADELPHIA",
+  variables = c(
+    atotal_population = "B01003_001",
+    a = "B01001_020",                  #extracting up all 65+ categories 
+    b = "B01001_021",
+    c = "B01001_022",
+    d = "B01001_023",
+    e = "B01001_024",
+    f = "B01001_025",
+    g = "B01001_044",
+    h = "B01001_045",
+    i = "B01001_046",
+    j = "B01001_047",
+    k = "B01001_048",
+    l = "B01001_049"
+  ),
+  year = 2022,
+  survey = "acs5",
+  output = "wide"
+) %>%                                  #calculating the total population 65+
+  mutate(
+    apop_65plusE =
+      aE + bE + cE + dE + eE + fE +
+      gE + hE + iE + jE + kE + lE
+  ) %>%
+  mutate(                              #cleaning (removing) strings that were unnecessary
+    NAME = NAME %>%
+      str_remove("Census Tract ") %>%
+      str_remove("; Pennsylvania")
+  ) %>%
+  select(                               #rename relevant columns for analysis
+    GEOID,
+    `County Name` = NAME,
+    `Total Population` = atotal_populationE,
+    `Total Population 65 Y+` = apop_65plusE
+  )
 
 
 
+
+#joining demographic data to census tracts in Philadelphia
+a_census_tract_join <- shub %>%
+  left_join(a_demographic_data, by = c("GEOID10" = "GEOID"))
+
+
+#identifying vulnerable tracts
+a_vulnerable_tracts <- a_census_tract_join %>%
+  mutate(
+    percent = (`Total Population 65 Y+` / `Total Population`) * 100,
+    a_distance = as.numeric(st_distance(st_centroid(shub$geometry), st_union(dhub))), #calculating distance between tract centroid and nearest polling places
+    vulnerability = case_when(
+      percent > 20 & a_distance > 804 ~ "Vulnerable!", #804 metres is 1/2 mile
+      TRUE ~ "Not Vulnerable"
+    )
+  )
+  
+a_vulnerable_tracts %>%
+  kable()
+
+
+
+
+
+#creating buffer of 1/3 mile around transit stops
+stop_buffer <- lhub %>%
+  st_buffer(536)  
+
+
+#vulnerable and critical area within tracts
+critical_tracts <- a_vulnerable_tracts %>%
+  st_filter(stop_buffer, .predicate = st_intersects)
+
+
+
+
+
+critical_tracts %>%
+  st_drop_geometry() %>%
+  mutate(
+    `County Name` = `County Name` %>%
+      str_remove("; Philadelphia County")
+  ) %>%
+  arrange(desc(percent)) %>%
+  slice_head(n = 10) %>%
+  select(
+    `Census Tract` = `County Name`,
+    `Total Population 65 Y+`,
+    `Distance to Polling Place (m)` = a_distance,
+    `% Population 65+` = percent
+  ) %>%
+  kable(digits = 1, caption = "Critical Tracts: Vulnerable Elderly Populations with Transit Access")
 
 
 
