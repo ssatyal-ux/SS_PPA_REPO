@@ -47,10 +47,11 @@ Load the required spatial data:
 - Pennsylvania census tracts
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
 
 # Load required packages
 library(tidyverse)
@@ -115,10 +116,12 @@ Use `tidycensus` to download tract-level demographic data for Pennsylvania.
 - Population 65 years and over (you may need to sum multiple age categories)
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Get demographic data from ACS
 demographic_data <- get_acs(
   geography = "tract",
@@ -211,10 +214,12 @@ Identify census tracts with vulnerable populations based on TWO criteria:
 2. Significant elderly population (choose an appropriate threshold)
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Filter for vulnerable tracts based on your criteria
 
 identify_vulnerability <- join_tract_boundaries %>%
@@ -270,10 +275,12 @@ head(identify_vulnerability)%>%
 For each vulnerable tract, calculate the distance to the nearest hospital.
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Transform to appropriate projected CRS
 hos <- st_transform(hospitals, 3365)
 vul <- st_transform(identify_vulnerability, 3365)
@@ -338,10 +345,11 @@ I chose my projection as 3365 because it is the apt projection for Pennsylvania 
 Define "underserved" as vulnerable tracts that are more than 15 miles from the nearest hospital.
 
 **Your Task:**
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Create underserved variable
 
 underserved <- vul_new %>%
@@ -384,10 +392,12 @@ glimpse(new1_summary)%>%
 Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Spatial join tracts to counties
 
 
@@ -461,10 +471,12 @@ ggplot() +
 Create a professional table showing the top 10 priority counties for healthcare investment.
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Create and format priority counties table
 
 names(new_spatial_join)
@@ -510,10 +522,12 @@ Using the skills from Week 3 (Data Visualization), create publication-quality ma
 Create a choropleth map showing healthcare access challenges at the county level.
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Create county-level access map
 
 ggplot() +
@@ -545,10 +559,13 @@ ggplot() +
 Create a map highlighting underserved vulnerable tracts.
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
+
 # Create detailed tract-level map
 
 ggplot() +
@@ -579,10 +596,12 @@ ggplot() +
 Create a visualization showing the distribution of distances to hospitals for vulnerable populations.
 
 **Your Task:**
+
+```{r}
 #| message: false
 #| warning: false
 #| results: 'hide'
-```{r}
+
 # Create distribution visualization
 
 ggplot(vul_new) +
@@ -744,6 +763,9 @@ Choose ONE of the following challenge exercises, or propose your own research qu
 
 
 ```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
 
 # Load your additional dataset
 
@@ -796,6 +818,10 @@ Use at least TWO spatial operations to answer your research question.
 
 **Your Task:**
 ```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
 # Your spatial analysis
 
 
