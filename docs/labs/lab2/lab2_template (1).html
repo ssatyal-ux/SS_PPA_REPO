@@ -4019,7 +4019,8 @@ vertical-align: -.125em;
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Load spatial data</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pa_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/Pennsylvania_County_Boundaries.shp&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>pa_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/Pennsylvania_County_Boundaries.shp&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `Pennsylvania_County_Boundaries&#39; from data source 
   `/Users/shubhangasatyal/Desktop/GitHub/SS_PPA_REPO/labs/lab2/data/Pennsylvania_County_Boundaries.shp&#39; 
@@ -4049,7 +4050,11 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |                                                                      |   1%
   |                                                                            
+  |=                                                                     |   1%
+  |                                                                            
   |=                                                                     |   2%
+  |                                                                            
+  |==                                                                    |   2%
   |                                                                            
   |==                                                                    |   3%
   |                                                                            
@@ -4063,13 +4068,13 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |======                                                                |   8%
   |                                                                            
-  |=======                                                               |   9%
+  |======                                                                |   9%
   |                                                                            
   |=======                                                               |  10%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
-  |========                                                              |  12%
+  |=========                                                             |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
