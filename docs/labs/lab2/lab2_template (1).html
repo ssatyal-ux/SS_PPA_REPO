@@ -4003,7 +4003,7 @@ vertical-align: -.125em;
 <section id="step-1-data-collection-5-points" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-data-collection-5-points">Step 1: Data Collection (5 points)</h4>
 <p>Load the required spatial data: - Pennsylvania county boundaries - Pennsylvania hospitals (from lecture data) - Pennsylvania census tracts</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -4056,21 +4056,25 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |===                                                                   |   4%
   |                                                                            
+  |===                                                                   |   5%
+  |                                                                            
   |====                                                                  |   5%
   |                                                                            
   |====                                                                  |   6%
   |                                                                            
   |=====                                                                 |   7%
   |                                                                            
+  |=====                                                                 |   8%
+  |                                                                            
   |======                                                                |   8%
   |                                                                            
-  |=======                                                               |   9%
+  |======                                                                |   9%
   |                                                                            
   |=======                                                               |  10%
   |                                                                            
-  |========                                                              |  11%
+  |=======                                                               |  11%
   |                                                                            
-  |=========                                                             |  12%
+  |========                                                              |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -4882,7 +4886,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <h4 class="anchored" data-anchor-id="step-2-get-demographic-data">Step 2: Get Demographic Data</h4>
 <p>Use <code>tidycensus</code> to download tract-level demographic data for Pennsylvania.</p>
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>demographic_data <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
@@ -5237,7 +5241,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <section id="step-3-define-vulnerable-populations" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-define-vulnerable-populations">Step 3: Define Vulnerable Populations</h4>
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -5493,7 +5497,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <section id="step-4-calculate-distance-to-hospitals" class="level4">
 <h4 class="anchored" data-anchor-id="step-4-calculate-distance-to-hospitals">Step 4: Calculate Distance to Hospitals</h4>
 <p>For each vulnerable tract, calculate the distance to the nearest hospital.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>hos <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hospitals, <span class="dv">3365</span>)</span>
@@ -5785,7 +5789,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <section id="step-5-identify-underserved-areas" class="level4">
 <h4 class="anchored" data-anchor-id="step-5-identify-underserved-areas">Step 5: Identify Underserved Areas</h4>
 <p>Define “underserved” as vulnerable tracts that are more than 15 miles from the nearest hospital.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -5859,7 +5863,7 @@ $ underserv_pct &lt;dbl&gt; 31.13553, 68.86447</code></pre>
 <section id="step-6-aggregate-to-county-level" class="level4">
 <h4 class="anchored" data-anchor-id="step-6-aggregate-to-county-level">Step 6: Aggregate to County Level</h4>
 <p>Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6016,7 +6020,7 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <section id="step-7-create-summary-table" class="level4">
 <h4 class="anchored" data-anchor-id="step-7-create-summary-table">Step 7: Create Summary Table</h4>
 <p>Create a professional table showing the top 10 priority counties for healthcare investment.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6164,7 +6168,7 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <section id="map-1-county-level-choropleth" class="level3">
 <h3 class="anchored" data-anchor-id="map-1-county-level-choropleth">Map 1: County-Level Choropleth</h3>
 <p>Create a choropleth map showing healthcare access challenges at the county level.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6192,7 +6196,7 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <section id="map-2-detailed-vulnerability-map" class="level3">
 <h3 class="anchored" data-anchor-id="map-2-detailed-vulnerability-map">Map 2: Detailed Vulnerability Map</h3>
 <p>Create a map highlighting underserved vulnerable tracts.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6221,7 +6225,7 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <section id="chart-distribution-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="chart-distribution-analysis">Chart: Distribution Analysis</h3>
 <p>Create a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Your Task:</strong> #| message: false #| warning: false #| results: ‘hide’</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
