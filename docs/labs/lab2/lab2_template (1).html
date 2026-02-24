@@ -4253,8 +4253,7 @@ population is more than 20%.</p></li>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing what was calculated above</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(new1_summary)<span class="sc">%&gt;%</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digit =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(new1_summary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2
 Columns: 4
@@ -4262,38 +4261,6 @@ $ n             &lt;int&gt; 85, 188
 $ serv_under_or &lt;chr&gt; &quot;underserved&quot;, &quot;vulnerable but served&quot;
 $ underserv_pct &lt;dbl&gt; 31.13553, 68.86447
 $ geometry      &lt;MULTIPOLYGON [US_survey_foot]&gt; MULTIPOLYGON (((1506307 154..., MULTIPOLYGON (((1365750 …</code></pre>
-</div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 30%">
-<col style="width: 19%">
-<col style="width: 43%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: right;">n</th>
-<th style="text-align: left;">serv_under_or</th>
-<th style="text-align: right;">underserv_pct</th>
-<th style="text-align: left;">geometry</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">85</td>
-<td style="text-align: left;">underserved</td>
-<td style="text-align: right;">31.1</td>
-<td style="text-align: left;">MULTIPOLYGON (((1506307 154…</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">188</td>
-<td style="text-align: left;">vulnerable but served</td>
-<td style="text-align: right;">68.9</td>
-<td style="text-align: left;">MULTIPOLYGON (((1365750 303…</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <p><strong>Questions to answer:</strong> - <strong>How many tracts are underserved?</strong>.</p>
@@ -4356,82 +4323,26 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing above calculations </span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>pct_uns <span class="sc">%&gt;%</span>  </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 9%">
-<col style="width: 14%">
-<col style="width: 15%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 12%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">COUNTY_NAM</th>
-<th style="text-align: right;">total_vulnerable</th>
-<th style="text-align: right;">total_underserved</th>
-<th style="text-align: right;">pct_underserved</th>
-<th style="text-align: right;">avg_dist</th>
-<th style="text-align: right;">total_vul_pop</th>
-<th style="text-align: left;">geometry</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">BERKS</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">19.1</td>
-<td style="text-align: right;">6506</td>
-<td style="text-align: left;">MULTIPOLYGON (((2498899 357…</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CAMERON</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">48.8</td>
-<td style="text-align: right;">8919</td>
-<td style="text-align: left;">MULTIPOLYGON (((1784634 645…</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CENTRE</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">49.5</td>
-<td style="text-align: right;">11192</td>
-<td style="text-align: left;">MULTIPOLYGON (((1793414 568…</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CLARION</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">40.8</td>
-<td style="text-align: right;">12929</td>
-<td style="text-align: left;">MULTIPOLYGON (((1516970 609…</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CLINTON</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">36.2</td>
-<td style="text-align: right;">5124</td>
-<td style="text-align: left;">POLYGON ((1885046 707042.8,…</td>
-</tr>
-</tbody>
-</table>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="dv">5</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 5 features and 6 fields
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: 1450456 ymin: 346323.6 xmax: 2560830 ymax: 904781.6
+Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
+# A tibble: 5 × 7
+  COUNTY_NAM total_vulnerable total_underserved pct_underserved avg_dist
+  &lt;chr&gt;                 &lt;int&gt;             &lt;int&gt;           &lt;dbl&gt;    &lt;dbl&gt;
+1 BERKS                     2                 2             100     19.1
+2 CAMERON                   4                 4             100     48.8
+3 CENTRE                    3                 3             100     49.5
+4 CLARION                   5                 5             100     40.8
+5 CLINTON                   2                 2             100     36.2
+# ℹ 2 more variables: total_vul_pop &lt;dbl&gt;, geometry &lt;GEOMETRY [US_survey_foot]&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#arranging by distance</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>new_spatial_join<span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_dist))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#arranging by distance</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>new_spatial_join<span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_dist))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 59 features and 6 fields
 Geometry type: GEOMETRY
@@ -4454,93 +4365,38 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 # ℹ 49 more rows
 # ℹ 2 more variables: total_vul_pop &lt;dbl&gt;, geometry &lt;GEOMETRY [US_survey_foot]&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing above calculations</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>new_spatial_join<span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="dv">5</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 9%">
-<col style="width: 14%">
-<col style="width: 15%">
-<col style="width: 13%">
-<col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">COUNTY_NAM</th>
-<th style="text-align: right;">total_vulnerable</th>
-<th style="text-align: right;">total_underserved</th>
-<th style="text-align: right;">pct_underserved</th>
-<th style="text-align: right;">avg_dist</th>
-<th style="text-align: right;">total_vul_pop</th>
-<th style="text-align: left;">geometry</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ALLEGHENY</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4.255319</td>
-<td style="text-align: right;">8.029834</td>
-<td style="text-align: right;">112690</td>
-<td style="text-align: left;">MULTIPOLYGON (((1354025 327…</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ARMSTRONG</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">60.000000</td>
-<td style="text-align: right;">27.483907</td>
-<td style="text-align: right;">15467</td>
-<td style="text-align: left;">MULTIPOLYGON (((1474152 529…</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BEAVER</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">12.500000</td>
-<td style="text-align: right;">9.148212</td>
-<td style="text-align: right;">17340</td>
-<td style="text-align: left;">MULTIPOLYGON (((1268631 472…</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">BEDFORD</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">80.000000</td>
-<td style="text-align: right;">29.776830</td>
-<td style="text-align: right;">18774</td>
-<td style="text-align: left;">MULTIPOLYGON (((1714860 146…</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BERKS</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">100.000000</td>
-<td style="text-align: right;">19.127423</td>
-<td style="text-align: right;">6506</td>
-<td style="text-align: left;">MULTIPOLYGON (((2498899 357…</td>
-</tr>
-</tbody>
-</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing above calculations</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>new_spatial_join<span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 5 features and 6 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 1248239 ymin: 142405.5 xmax: 2560830 ymax: 654393.6
+Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
+# A tibble: 5 × 7
+  COUNTY_NAM total_vulnerable total_underserved pct_underserved avg_dist
+  &lt;chr&gt;                 &lt;int&gt;             &lt;int&gt;           &lt;dbl&gt;    &lt;dbl&gt;
+1 ALLEGHENY                47                 2            4.26     8.03
+2 ARMSTRONG                 5                 3           60       27.5 
+3 BEAVER                    8                 1           12.5      9.15
+4 BEDFORD                   5                 4           80       29.8 
+5 BERKS                     2                 2          100       19.1 
+# ℹ 2 more variables: total_vul_pop &lt;dbl&gt;,
+#   geometry &lt;MULTIPOLYGON [US_survey_foot]&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#attached the summary statistics to the county boundary shapefile so it can be mapped</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>county_map_data <span class="ot">&lt;-</span> pcounty <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>(new_spatial_join), <span class="at">by =</span> <span class="st">&quot;COUNTY_NAM&quot;</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#mapping underserved areas by county to observe potential patterns</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> county_map_data, <span class="fu">aes</span>(<span class="at">fill =</span> pct_underserved), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;% Underserved&quot;</span>, <span class="at">na.value =</span> <span class="st">&quot;navy&quot;</span>, <span class="at">option =</span> <span class="st">&quot;inferno&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Underserved Vulnerable Populations by County&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#attached the summary statistics to the county boundary shapefile so it can be mapped</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>county_map_data <span class="ot">&lt;-</span> pcounty <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>(new_spatial_join), <span class="at">by =</span> <span class="st">&quot;COUNTY_NAM&quot;</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#mapping underserved areas by county to observe potential patterns</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> county_map_data, <span class="fu">aes</span>(<span class="at">fill =</span> pct_underserved), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;% Underserved&quot;</span>, <span class="at">na.value =</span> <span class="st">&quot;navy&quot;</span>, <span class="at">option =</span> <span class="st">&quot;inferno&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Underserved Vulnerable Populations by County&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4563,36 +4419,31 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <section id="step-7-create-summary-table" class="level4">
 <h4 class="anchored" data-anchor-id="step-7-create-summary-table">Step 7: Create Summary Table</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(new_spatial_join)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;COUNTY_NAM&quot;        &quot;total_vulnerable&quot;  &quot;total_underserved&quot;
-[4] &quot;pct_underserved&quot;   &quot;avg_dist&quot;          &quot;total_vul_pop&quot;    
-[7] &quot;geometry&quot;         </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>health_care <span class="ot">&lt;-</span> new_spatial_join <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pct_underserved), <span class="fu">desc</span>(avg_dist)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_vul_pop =</span> <span class="fu">comma</span>(total_vul_pop)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">%&gt;%</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">County Name</span><span class="st">`</span> <span class="ot">=</span> COUNTY_NAM,</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance from Nearest Hospital (miles)</span><span class="st">`</span><span class="ot">=</span> avg_dist,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% Underserved Tracts among Vulnerable Tracts</span><span class="st">`</span> <span class="ot">=</span> pct_underserved,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Population in these Tracts</span><span class="st">`</span> <span class="ot">=</span> total_vul_pop,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Underserved Tracts</span><span class="st">`</span> <span class="ot">=</span> total_underserved,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Vulnerable Tracts</span><span class="st">`</span> <span class="ot">=</span> total_vulnerable</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#displaying the table</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>health_care<span class="sc">%&gt;%</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">0</span>,</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Priority Table for Healthcare Investments&quot;</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>health_care <span class="ot">&lt;-</span> new_spatial_join <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pct_underserved), <span class="fu">desc</span>(avg_dist)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_vul_pop =</span> <span class="fu">comma</span>(total_vul_pop)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">County Name</span><span class="st">`</span> <span class="ot">=</span> COUNTY_NAM,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance from Nearest Hospital (miles)</span><span class="st">`</span><span class="ot">=</span> avg_dist,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% Underserved Tracts among Vulnerable Tracts</span><span class="st">`</span> <span class="ot">=</span> pct_underserved,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Population in these Tracts</span><span class="st">`</span> <span class="ot">=</span> total_vul_pop,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Underserved Tracts</span><span class="st">`</span> <span class="ot">=</span> total_underserved,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Vulnerable Tracts</span><span class="st">`</span> <span class="ot">=</span> total_vulnerable</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#displaying the table</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>health_care<span class="sc">%&gt;%</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">0</span>,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Priority Table for Healthcare Investments&quot;</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Priority Table for Healthcare Investments</caption>
@@ -4884,239 +4735,81 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 <span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a><span class="co">#viewig above calculation</span></span>
-<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a_vulnerable_tracts) <span class="sc">%&gt;%</span></span>
-<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digit =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 2%">
-<col style="width: 6%">
-<col style="width: 2%">
-<col style="width: 3%">
-<col style="width: 2%">
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 9%">
-<col style="width: 6%">
-<col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 2%">
-<col style="width: 3%">
-<col style="width: 5%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: right;">OBJECTID</th>
-<th style="text-align: left;">STATEFP10</th>
-<th style="text-align: left;">COUNTYFP10</th>
-<th style="text-align: left;">TRACTCE10</th>
-<th style="text-align: left;">GEOID10</th>
-<th style="text-align: left;">NAME10</th>
-<th style="text-align: left;">NAMELSAD10</th>
-<th style="text-align: left;">MTFCC10</th>
-<th style="text-align: left;">FUNCSTAT10</th>
-<th style="text-align: right;">ALAND10</th>
-<th style="text-align: right;">AWATER10</th>
-<th style="text-align: left;">INTPTLAT10</th>
-<th style="text-align: left;">INTPTLON10</th>
-<th style="text-align: left;">LOGRECNO</th>
-<th style="text-align: left;">County Name</th>
-<th style="text-align: right;">Total Population</th>
-<th style="text-align: right;">Total Population 65 Y+</th>
-<th style="text-align: left;">geometry</th>
-<th style="text-align: right;">percent</th>
-<th style="text-align: right;">a_distance</th>
-<th style="text-align: left;">vulnerability</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">101</td>
-<td style="text-align: left;">009400</td>
-<td style="text-align: left;">42101009400</td>
-<td style="text-align: left;">94</td>
-<td style="text-align: left;">Census Tract 94</td>
-<td style="text-align: left;">G5020</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">366717</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">+39.9632709</td>
-<td style="text-align: left;">-075.2322437</td>
-<td style="text-align: left;">10429</td>
-<td style="text-align: left;">94; Philadelphia County</td>
-<td style="text-align: right;">3864</td>
-<td style="text-align: right;">554</td>
-<td style="text-align: left;">MULTIPOLYGON (((2675025 238…</td>
-<td style="text-align: right;">14.3</td>
-<td style="text-align: right;">274.3</td>
-<td style="text-align: left;">Not Vulnerable</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">101</td>
-<td style="text-align: left;">009500</td>
-<td style="text-align: left;">42101009500</td>
-<td style="text-align: left;">95</td>
-<td style="text-align: left;">Census Tract 95</td>
-<td style="text-align: left;">G5020</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">319070</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">+39.9658709</td>
-<td style="text-align: left;">-075.2379140</td>
-<td style="text-align: left;">10430</td>
-<td style="text-align: left;">95; Philadelphia County</td>
-<td style="text-align: right;">3755</td>
-<td style="text-align: right;">320</td>
-<td style="text-align: left;">MULTIPOLYGON (((2673235 241…</td>
-<td style="text-align: right;">8.5</td>
-<td style="text-align: right;">475.8</td>
-<td style="text-align: left;">Not Vulnerable</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">101</td>
-<td style="text-align: left;">009600</td>
-<td style="text-align: left;">42101009600</td>
-<td style="text-align: left;">96</td>
-<td style="text-align: left;">Census Tract 96</td>
-<td style="text-align: left;">G5020</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">405273</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">+39.9655396</td>
-<td style="text-align: left;">-075.2435075</td>
-<td style="text-align: left;">10431</td>
-<td style="text-align: left;">96; Philadelphia County</td>
-<td style="text-align: right;">3528</td>
-<td style="text-align: right;">451</td>
-<td style="text-align: left;">MULTIPOLYGON (((2671039 239…</td>
-<td style="text-align: right;">12.8</td>
-<td style="text-align: right;">1243.7</td>
-<td style="text-align: left;">Not Vulnerable</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">101</td>
-<td style="text-align: left;">013800</td>
-<td style="text-align: left;">42101013800</td>
-<td style="text-align: left;">138</td>
-<td style="text-align: left;">Census Tract 138</td>
-<td style="text-align: left;">G5020</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">341256</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">+39.9764504</td>
-<td style="text-align: left;">-075.1771771</td>
-<td style="text-align: left;">10468</td>
-<td style="text-align: left;">138; Philadelphia County</td>
-<td style="text-align: right;">2077</td>
-<td style="text-align: right;">126</td>
-<td style="text-align: left;">MULTIPOLYGON (((2690493 245…</td>
-<td style="text-align: right;">6.1</td>
-<td style="text-align: right;">535.4</td>
-<td style="text-align: left;">Not Vulnerable</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">101</td>
-<td style="text-align: left;">013900</td>
-<td style="text-align: left;">42101013900</td>
-<td style="text-align: left;">139</td>
-<td style="text-align: left;">Census Tract 139</td>
-<td style="text-align: left;">G5020</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">562934</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">+39.9750563</td>
-<td style="text-align: left;">-075.1711846</td>
-<td style="text-align: left;">10469</td>
-<td style="text-align: left;">139; Philadelphia County</td>
-<td style="text-align: right;">2585</td>
-<td style="text-align: right;">391</td>
-<td style="text-align: left;">MULTIPOLYGON (((2690572 245…</td>
-<td style="text-align: right;">15.1</td>
-<td style="text-align: right;">869.0</td>
-<td style="text-align: left;">Not Vulnerable</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">101</td>
-<td style="text-align: left;">014000</td>
-<td style="text-align: left;">42101014000</td>
-<td style="text-align: left;">140</td>
-<td style="text-align: left;">Census Tract 140</td>
-<td style="text-align: left;">G5020</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">439802</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">+39.9735358</td>
-<td style="text-align: left;">-075.1630966</td>
-<td style="text-align: left;">10470</td>
-<td style="text-align: left;">140; Philadelphia County</td>
-<td style="text-align: right;">5753</td>
-<td style="text-align: right;">215</td>
-<td style="text-align: left;">MULTIPOLYGON (((2693934 242…</td>
-<td style="text-align: right;">3.7</td>
-<td style="text-align: right;">553.2</td>
-<td style="text-align: left;">Not Vulnerable</td>
-</tr>
-</tbody>
-</table>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing above calculation</span></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(a_vulnerable_tracts) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 20 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 2669884 ymin: 238541.7 xmax: 2694682 ymax: 246050.9
+Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
+  OBJECTID STATEFP10 COUNTYFP10 TRACTCE10     GEOID10 NAME10       NAMELSAD10
+1        1        42        101    009400 42101009400     94  Census Tract 94
+2        2        42        101    009500 42101009500     95  Census Tract 95
+3        3        42        101    009600 42101009600     96  Census Tract 96
+4        4        42        101    013800 42101013800    138 Census Tract 138
+5        5        42        101    013900 42101013900    139 Census Tract 139
+6        6        42        101    014000 42101014000    140 Census Tract 140
+  MTFCC10 FUNCSTAT10 ALAND10 AWATER10  INTPTLAT10   INTPTLON10 LOGRECNO
+1   G5020          S  366717        0 +39.9632709 -075.2322437    10429
+2   G5020          S  319070        0 +39.9658709 -075.2379140    10430
+3   G5020          S  405273        0 +39.9655396 -075.2435075    10431
+4   G5020          S  341256        0 +39.9764504 -075.1771771    10468
+5   G5020          S  562934        0 +39.9750563 -075.1711846    10469
+6   G5020          S  439802        0 +39.9735358 -075.1630966    10470
+               County Name Total Population Total Population 65 Y+
+1  94; Philadelphia County             3864                    554
+2  95; Philadelphia County             3755                    320
+3  96; Philadelphia County             3528                    451
+4 138; Philadelphia County             2077                    126
+5 139; Philadelphia County             2585                    391
+6 140; Philadelphia County             5753                    215
+                        geometry   percent a_distance  vulnerability
+1 MULTIPOLYGON (((2675025 238... 14.337474   274.2652 Not Vulnerable
+2 MULTIPOLYGON (((2673235 241...  8.521971   475.8396 Not Vulnerable
+3 MULTIPOLYGON (((2671039 239... 12.783447  1243.7123 Not Vulnerable
+4 MULTIPOLYGON (((2690493 245...  6.066442   535.4109 Not Vulnerable
+5 MULTIPOLYGON (((2690572 245... 15.125725   868.9987 Not Vulnerable
+6 MULTIPOLYGON (((2693934 242...  3.737181   553.1527 Not Vulnerable</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter to vulnerable tracts</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>identify_vulnerabilitya <span class="ot">&lt;-</span> a_vulnerable_tracts <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(vulnerability <span class="sc">==</span> <span class="st">&quot;Vulnerable!&quot;</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># creating buffer of 0.125 mile around transit stops (easy access for senior citizes)</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>stop_buffer <span class="ot">&lt;-</span> lhub <span class="sc">%&gt;%</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">200</span>)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#identifying critical tracts (using disjoint to exclude areas not covered by the transit buffer)</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>critical_tracts <span class="ot">&lt;-</span> identify_vulnerabilitya <span class="sc">%&gt;%</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_filter</span>(stop_buffer, <span class="at">.predicate =</span> st_disjoint) </span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Identifying most priritizable among the critical tracts, prioritizing based on distance to polling place, followed by percent of 65+</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>top_critical_tracts <span class="ot">&lt;-</span> critical_tracts <span class="sc">%&gt;%</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(a_distance), <span class="fu">desc</span>(percent)) <span class="sc">%&gt;%</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tract</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">str_remove</span>(NAMELSAD10, <span class="st">&quot;Census Tract &quot;</span>),</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Population</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">comma</span>(<span class="st">`</span><span class="at">Total Population</span><span class="st">`</span>),</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance to Polling Places (mi)</span><span class="st">`</span> <span class="ot">=</span> a_distance <span class="sc">/</span> <span class="fl">1609.34</span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tract</span><span class="st">`</span>,</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Population</span><span class="st">`</span>,</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% Vulnerable</span><span class="st">`</span> <span class="ot">=</span> percent,</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance to Polling Places (mi)</span><span class="st">`</span></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing and labeling</span></span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>top_critical_tracts <span class="sc">%&gt;%</span></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">1</span>,</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Critical Tracts for Investment in Elderly Participation in Elections&quot;</span></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter to vulnerable tracts</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>identify_vulnerabilitya <span class="ot">&lt;-</span> a_vulnerable_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(vulnerability <span class="sc">==</span> <span class="st">&quot;Vulnerable!&quot;</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># creating buffer of 0.125 mile around transit stops (easy access for senior citizes)</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>stop_buffer <span class="ot">&lt;-</span> lhub <span class="sc">%&gt;%</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">200</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#identifying critical tracts (using disjoint to exclude areas not covered by the transit buffer)</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>critical_tracts <span class="ot">&lt;-</span> identify_vulnerabilitya <span class="sc">%&gt;%</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_filter</span>(stop_buffer, <span class="at">.predicate =</span> st_disjoint) </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Identifying most priritizable among the critical tracts, prioritizing based on distance to polling place, followed by percent of 65+</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>top_critical_tracts <span class="ot">&lt;-</span> critical_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(a_distance), <span class="fu">desc</span>(percent)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tract</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">str_remove</span>(NAMELSAD10, <span class="st">&quot;Census Tract &quot;</span>),</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Population</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">comma</span>(<span class="st">`</span><span class="at">Total Population</span><span class="st">`</span>),</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance to Polling Places (mi)</span><span class="st">`</span> <span class="ot">=</span> a_distance <span class="sc">/</span> <span class="fl">1609.34</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tract</span><span class="st">`</span>,</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Total Population</span><span class="st">`</span>,</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% Vulnerable</span><span class="st">`</span> <span class="ot">=</span> percent,</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Avg Distance to Polling Places (mi)</span><span class="st">`</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="co">#viewing and labeling</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>top_critical_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">1</span>,</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Critical Tracts for Investment in Elderly Participation in Elections&quot;</span></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Critical Tracts for Investment in Elderly Participation in Elections</caption>
@@ -5156,18 +4849,18 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 </tbody>
 </table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mapping vulnerable tracts and hospitals for visual understanding</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> shub, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> a_vulnerable_tracts, <span class="fu">aes</span>(<span class="at">fill =</span> percent), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dhub, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;% Age 65+&quot;</span>, <span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Polling Access vulnerability in Philadelphia&quot;</span>,</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;vulnerability chloropleth&quot;</span>,</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Green points = Polling Places&quot;</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mapping vulnerable tracts and hospitals for visual understanding</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> shub, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> a_vulnerable_tracts, <span class="fu">aes</span>(<span class="at">fill =</span> percent), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dhub, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;% Age 65+&quot;</span>, <span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Polling Access vulnerability in Philadelphia&quot;</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;vulnerability chloropleth&quot;</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Green points = Polling Places&quot;</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5175,31 +4868,22 @@ Projected CRS: NAD83(HARN) / Pennsylvania South (ftUS)
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#converting critical tracts into geometric</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>critical_top3pls <span class="ot">&lt;-</span> critical_tracts <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NAMELSAD10 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Census Tract 364&quot;</span>, <span class="st">&quot;Census Tract 220&quot;</span>, <span class="st">&quot;Census Tract 9802&quot;</span>))</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(critical_top3pls)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] &quot;OBJECTID&quot;               &quot;STATEFP10&quot;              &quot;COUNTYFP10&quot;            
- [4] &quot;TRACTCE10&quot;              &quot;GEOID10&quot;                &quot;NAME10&quot;                
- [7] &quot;NAMELSAD10&quot;             &quot;MTFCC10&quot;                &quot;FUNCSTAT10&quot;            
-[10] &quot;ALAND10&quot;                &quot;AWATER10&quot;               &quot;INTPTLAT10&quot;            
-[13] &quot;INTPTLON10&quot;             &quot;LOGRECNO&quot;               &quot;County Name&quot;           
-[16] &quot;Total Population&quot;       &quot;Total Population 65 Y+&quot; &quot;geometry&quot;              
-[19] &quot;percent&quot;                &quot;a_distance&quot;             &quot;vulnerability&quot;         </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> shub, <span class="at">fill =</span> <span class="st">&quot;gold&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gold&quot;</span>) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> critical_top3pls, <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dhub, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 3 Critical Tracts for Elderly Polling Access&quot;</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;blue tracts are disconnected from transit and far from polling places&quot;</span>,</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;red points = Polling Places&quot;</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#converting critical tracts into geometric</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>critical_top3pls <span class="ot">&lt;-</span> critical_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NAMELSAD10 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Census Tract 364&quot;</span>, <span class="st">&quot;Census Tract 220&quot;</span>, <span class="st">&quot;Census Tract 9802&quot;</span>))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> shub, <span class="at">fill =</span> <span class="st">&quot;gold&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gold&quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> critical_top3pls, <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dhub, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 3 Critical Tracts for Elderly Polling Access&quot;</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;blue tracts are disconnected from transit and far from polling places&quot;</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;red points = Polling Places&quot;</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

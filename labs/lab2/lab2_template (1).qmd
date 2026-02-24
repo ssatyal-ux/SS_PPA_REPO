@@ -342,8 +342,7 @@ new1_summary <- underserved %>%
 
 
 #viewing what was calculated above
-glimpse(new1_summary)%>%
-  kable(digit = 1)
+glimpse(new1_summary)
 
 ```
 
@@ -394,8 +393,8 @@ pct_uns <- new_spatial_join %>%
 
 #viewing above calculations 
 pct_uns %>%  
-head(5) %>%
-  kable(digits = 1)
+head(5) 
+
 
 
 #arranging by distance
@@ -405,8 +404,7 @@ new_spatial_join%>%
 
 #viewing above calculations
 new_spatial_join%>%
-head(5)%>%
-kable()
+head(5)
 
 
 #attached the summary statistics to the county boundary shapefile so it can be mapped
@@ -447,7 +445,7 @@ ggplot() +
 
 
 # Create and format priority counties table
-names(new_spatial_join)
+
 health_care <- new_spatial_join %>%
   st_drop_geometry() %>%
   arrange(desc(pct_underserved), desc(avg_dist)) %>%
@@ -669,9 +667,8 @@ a_vulnerable_tracts <- a_census_tract_join %>%
   )
 
 
-#viewig above calculation
-head(a_vulnerable_tracts) %>%
-  kable(digit = 1)
+#viewing above calculation
+head(a_vulnerable_tracts) 
 
 
 # filter to vulnerable tracts
@@ -733,7 +730,6 @@ critical_top3pls <- critical_tracts %>%
   filter(NAMELSAD10 %in% c("Census Tract 364", "Census Tract 220", "Census Tract 9802"))
 
 
-names(critical_top3pls)
 
 ggplot() +
   geom_sf(data = shub, fill = "gold", color = "gold") +
