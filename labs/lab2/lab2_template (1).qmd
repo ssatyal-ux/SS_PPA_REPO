@@ -321,10 +321,6 @@ I chose my projection as 3365 because it is the apt projection for Pennsylvania 
 "underserved" are vulnerable tracts that are more than 15 miles from the nearest hospital.
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
-
 
 # Create underserved variable, categorizing into underserved and not
 underserved <- vul_new %>%
@@ -367,10 +363,6 @@ glimpse(new1_summary)%>%
 #### Step 6: Aggregate to County Level
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
-
 
 # transforming to NAD83 again string in different variable
 pcounty <- st_transform(pa_counties, 3365)
@@ -452,9 +444,7 @@ ggplot() +
 
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
+
 
 # Create and format priority counties table
 names(new_spatial_join)
@@ -493,9 +483,6 @@ Using the skills from Week 3 (Data Visualization), create publication-quality ma
 ### Map 1: County-Level Choropleth 
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
 
 # Create county-level access map
 ggplot() +
@@ -516,9 +503,7 @@ ggplot() +
 ### Map 2: Detailed Vulnerability Map 
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
+
 
 
 # Create detailed tract-level map
@@ -541,9 +526,7 @@ ggplot() +
 ### Chart: Distribution Analysis
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
+
 
 # Create distribution visualization
 ggplot(vul_new) +
@@ -625,9 +608,6 @@ lhub <- st_transform(transit_stops,3365)
 3. **Conduct spatial analysis**
 
 ```{r}
-#| message: false
-#| warning: false
-#| results: 'hide'
 
 # Your spatial analysis
 
