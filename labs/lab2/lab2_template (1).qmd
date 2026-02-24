@@ -667,9 +667,6 @@ a_vulnerable_tracts <- a_census_tract_join %>%
   )
 
 
-#viewing above calculation
-head(a_vulnerable_tracts) 
-
 
 # filter to vulnerable tracts
 identify_vulnerabilitya <- a_vulnerable_tracts %>%
