@@ -753,7 +753,7 @@ Philadelphia is mostly covered via transit connections, whether it be regional r
 
 
 ## Comments about your incorporation of feedback!
-I cleaned up the presentation and only included essential information for display on quarto. Unnecessary details were attempted to be excluded.
+I cleaned up the presentation and only included essential information for display on quarto. Unnecessary details were attempted to be excluded. I formatted only tabels that were asked to display
 
 ## Acknowledgements 
 
