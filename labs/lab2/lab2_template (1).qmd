@@ -748,24 +748,32 @@ ggplot() +
 ```
 
 
-**Your interpretation:**
+
 Philadelphia is mostly covered via transit connections, whether it be regional rail, SEPTA subway, or buses. However, gaps remain in three critical census tract areas: tracts 364, 220, and 9802. Not only do these tracts have a vulnerable population above the 20% threshold, with those aged 65 and above exceeding 45%, but the average distance to a polling place is more than a third of a mile. This is a significant concern for elderly residents, as these tracts also fall outside the 0.125-mile transit buffer entirely. While this distance may not seem substantial, most elderly individuals suffer from arthritis and knee-related issues, making walkability a critical factor. It is therefore essential that their inclusivity be prioritized. 
 
 
 ## Comments about your incorporation of feedback!
 I cleaned up the presentation and only included essential information for display on quarto. Unnecessary details were attempted to be excluded.
 
-##Acknowledgements 
+## Acknowledgements 
 
-I consulted lab1 codes, week4 lecture codes, week4 inclass practice codes,week 3 lab exercies, week 3 qmd.
+I consulted lab1 codes, week4 lecture codes, week4 inclass practice codes,week 3 lab exercies, week 3 qmd.  
 
 I also consulted:     
 
-sf cheat sheet:
-https://rstudio.github.io/cheatsheets/sf.pdf
-gg plot cheat sheet: https://rstudio.github.io/cheatsheets/data-visualization.pdf
-dplyr cheat sheet: 
-https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf
+  sf cheat sheet:
+  
+  
+  https://rstudio.github.io/cheatsheets/sf.pdf. 
+  
+  gg plot cheat sheet:
+  
+  https://rstudio.github.io/cheatsheets/data-visualization.pdf. 
+  
+  
+ dplyr cheat sheet: 
+https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf. 
+
 
 Besides I consulted Claude and Chat GPT- coding by myself, then consulting it for corrections. 
 
